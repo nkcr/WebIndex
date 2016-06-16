@@ -34,3 +34,8 @@ To launch tests :
 ```bash
 $ py.test test_extractor.py
 ```
+
+## Dependency
+
+* python3
+* lxml
