@@ -1,8 +1,8 @@
 # HTML extractor
 
-## Feature
+## Features
 
-Extract an HTML file to blocks corresponding to HTML blocks. Formatting blocks
+Extracts an HTML file to blocks corresponding to HTML blocks. Formatting blocks
 are not considered as block. For example :
 
 ```html
