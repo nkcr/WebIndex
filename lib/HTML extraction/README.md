@@ -35,7 +35,7 @@ To launch tests :
 $ py.test test_extractor.py
 ```
 
-## Dependency
+## Dependencies
 
 * python3
 * lxml
