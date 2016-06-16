@@ -1,5 +1,5 @@
 import pytest
-import extractor2 as parser
+import extractor as parser
 
 files_root = 'test_files/'
 

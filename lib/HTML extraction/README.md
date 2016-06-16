@@ -39,3 +39,4 @@ $ py.test test_extractor.py
 
 * python3
 * lxml
+* py.test
