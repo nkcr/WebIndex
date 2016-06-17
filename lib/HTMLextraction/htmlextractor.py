@@ -157,7 +157,7 @@ def parseHTML(source, callback=None):
     context = etree.parse(source)
     def __callback(content,block_id,html_tag,**kargs):
         if(callback is not None):
-            callback(content,block_id,html_tag,**kargs,path=source)
+            callback(content,block_id,html_tag,path=source,**kargs)
 
     __crawl(context.getroot().iterchildren(), 0, res, '', '', 0, __callback)
     return res

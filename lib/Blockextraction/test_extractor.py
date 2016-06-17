@@ -1,18 +1,31 @@
+'''Test the file 'blockextractor.py'
+
+Run with `py.test test_extractor.py`
+
+Author: Noémien Kocher
+Licence: MIT
+Date: june 2016
+'''
+
 import pytest
 import blockextractor as parser
 
+# Test the parsing of a block with the method 'handle_block'
 def test_handleblock():
+    engine = parser.BlockExtractor()
     content = 'Lorèm-dolor sit dolor'
-    docId = 'todo'
     block_id = 12
     html_tag = 'p'
     rel_pos = 10
     dom_level = 3
+    path = 'path'
+    (docId, res) = engine.handle_block(content, block_id, html_tag,
+        dom_level=dom_level, rel_pos=rel_pos, path=path)
     truth = {
         'lorèm': [ # wordId
             0, {   # rank
-                'todo': [0, 0, {  # docId, nbHits, rank
-                    ('lorèm','todo'): [ # hitlistId
+                docId: [0, 0, {  # docId, nbHits, rank
+                    ('lorèm',docId): [ # hitlistId
                         [12,10,3] # blockId, position, domLevel
                     ]
                 }]
@@ -20,8 +33,8 @@ def test_handleblock():
         ],
         'dolor': [
             0, {
-                'todo': [0, 0, {
-                    ('dolor','todo'): [
+                docId: [0, 0, {
+                    ('dolor',docId): [
                         [12,16,3],
                         [12,26,3]
                     ]
@@ -30,14 +43,151 @@ def test_handleblock():
         ],
         'sit': [
             0, {
-                'todo': [0, 0, {
-                    ('sit','todo'): [
+                docId: [0, 0, {
+                    ('sit',docId): [
                         [12,22,3]
                     ]
                 }]
             }
         ]
     }
-    res = parser.handle_block(content, block_id, html_tag,
-        dom_level=dom_level, rel_pos=rel_pos)
     assert res == truth
+
+# Test the case of an update of the inverted index with method 'update_ii'
+def test_update_ii():
+    ii = {
+        'tree': [ 0, { # rank
+            'did1': [ 0, 0, { # nbHit, rank
+                ('tree', 'did1'): [  # the hitlist
+                    ['bid1', 12, 1], # blockId, position, domLevel
+                    ['bid2', 10, 2]
+                ]
+            } ],
+            'did2': [ 0, 0, {
+                ('tree', 'did2'): [
+                    ['bid1', 1, 3]
+                ]
+            } ]
+        } ],
+        'cat': [ 0, {
+            'did1': [ 0, 0, {
+                ('cat', 'did1'): [
+                    ['bid1', 30, 1]
+                ]
+            } ]
+        } ]
+    }
+    local_ii = {
+        'tree': [ 0, {
+            'did3': [ 0, 0, {
+                ('tree', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13]
+                ]
+            } ]
+        } ],
+        'cat': [ 0, {
+            'did3': [ 0, 0, {
+                ('cat', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13],
+                    ['bid3', 15, 13]
+                ]
+            } ]
+        } ]
+    }
+    truth = {
+        'tree': [ 0, { # rank
+            'did1': [ 0, 0, { # nbHit, rank
+                ('tree', 'did1'): [  # the hitlist
+                    ['bid1', 12, 1], # blockId, position, domLevel
+                    ['bid2', 10, 2]
+                ]
+            } ],
+            'did2': [ 0, 0, {
+                ('tree', 'did2'): [
+                    ['bid1', 1, 3]
+                ]
+            } ],
+            'did3': [ 0, 0, {
+                ('tree', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13]
+                ]
+            } ]
+        } ],
+        'cat': [ 0, {
+            'did1': [ 0, 0, {
+                ('cat', 'did1'): [
+                    ['bid1', 30, 1]
+                ]
+            } ],
+            'did3': [ 0, 0, {
+                ('cat', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13],
+                    ['bid3', 15, 13]
+                ]
+            } ]
+        } ]
+    }
+    engine = parser.BlockExtractor()
+    engine.ii = ii
+    engine.update_ii(local_ii, 'did3')
+    assert engine.ii == truth
+
+# Update with an empty hash should not change the inverted index
+def test_empty_param_update():
+    ii = {
+        'tree': [ 0, { # rank
+            'did1': [ 0, 0, { # nbHit, rank
+                ('tree', 'did1'): [  # the hitlist
+                    ['bid1', 12, 1], # blockId, position, domLevel
+                    ['bid2', 10, 2]
+                ]
+            } ],
+            'did2': [ 0, 0, {
+                ('tree', 'did2'): [
+                    ['bid1', 1, 3]
+                ]
+            } ]
+        } ],
+        'cat': [ 0, {
+            'did1': [ 0, 0, {
+                ('cat', 'did1'): [
+                    ['bid1', 30, 1]
+                ]
+            } ]
+        } ]
+    }
+    local_ii = {}
+    engine = parser.BlockExtractor()
+    engine.ii = ii
+    engine.update_ii(local_ii, 'did3')
+    assert engine.ii == ii
+
+# Test the first update, when the inverted index is empty
+def test_empti_ii_update():
+    ii = {}
+    local_ii = {
+        'tree': [ 0, {
+            'did3': [ 0, 0, {
+                ('tree', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13]
+                ]
+            } ]
+        } ],
+        'cat': [ 0, {
+            'did3': [ 0, 0, {
+                ('cat', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13],
+                    ['bid3', 15, 13]
+                ]
+            } ]
+        } ]
+    }
+    engine = parser.BlockExtractor()
+    engine.update_ii(local_ii, 'did3')
+    assert engine.ii == local_ii

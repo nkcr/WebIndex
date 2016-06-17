@@ -1,3 +1,12 @@
+'''Test the file 'htmlextractor'
+
+Run with `py.test test_extractor.py`
+
+Author: Noémien Kocher
+Licence: MIT
+Date: june 2016
+'''
+
 import pytest
 import htmlextractor as parser
 
