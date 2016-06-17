@@ -27,6 +27,15 @@ result = parser.parseHTML('file.html')
 # result => {1: 'block1', 2: 'block2', ...}
 ```
 
+It is possible to give as second argument a function that will be called for
+each HTML tag parsed, as the following:
+
+```
+callback(content, block_id, html_tag, dom_level)
+```
+
+The `dom_level` starts at 1 in the body as is incremented for each level.
+
 ## Test
 
 To launch tests :

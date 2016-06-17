@@ -20,7 +20,7 @@ Module usage:
 
         callback (func): An optional function that is called when an HTML tag is
             parsed. Func takes as Parameters:
-                func(content, html_tag, block_id)
+                func(content, block_id, html_tag, dom_level)
 
 Author: Noémien Kocher
 Licence: MIT
@@ -58,7 +58,8 @@ def __store_content(res,content,i):
         res[i] = content
     return i
 
-def __crawl(elements, i, res, acc, parent_tag, dom_level, callback, formatting=False):
+def __crawl(elements, i, res, acc, parent_tag,
+            dom_level, callback, formatting=False):
     '''Recursively parse each element as block.
 
     Parameters:
@@ -66,6 +67,10 @@ def __crawl(elements, i, res, acc, parent_tag, dom_level, callback, formatting=F
         i   (int): The current blockId.
         res (dict): The hash containing blocks.
         acc (string): The current text that hasn't been stored yet.
+        parent_tag (strin): The parent tag as a string
+        dom_level (int): The current dom_level. Body is at level 1
+        callback (func): A function that is called for each html tag and takes
+            as params: func(content, block_id, html_tag, dom_level)
         formattting (bool): Indicates if it parses formatting blocks.
 
     Returns:
@@ -123,9 +128,9 @@ def parseHTML(source, callback=None):
 
     Parameters:
         source (string): The path of the HTML file.
-        callback (fun): A function called for each HTML tag.
-            Func takes as Parameters:
-                func(content, html_tag, block_id)
+        callback (func): A function called for each HTML tag.
+            Function takes as Parameters:
+                func(content, block_id, html_tag, dom_level)
 
     Returns:
         res (dict): Hash containing HTML blocks
@@ -136,7 +141,7 @@ def parseHTML(source, callback=None):
     context = etree.parse(source)
     if(callback is None):
         def callback(content,block_id,html_tag,dom_level):
-            print("Content: ", content, " \t block_id: ", block_id, " \t html_tag: ", html_tag, " \t dom_level: ", dom_level)
+            # print("Content: ", content, " \t block_id: ", block_id, " \t html_tag: ", html_tag, " \t dom_level: ", dom_level)
             return
     __crawl(context.getroot().iterchildren(), 0, res, '', '', 0, callback)
     return res
