@@ -65,3 +65,18 @@ def test_utf8_content():
         2: 'é à ü'
     }
     assert parser.parseHTML(files_root + 'utf8_content.html') == truth
+
+def test_callback():
+    truth = [
+        ['Title',    1,'title',2],
+        ['Big title',2,'h1',   3],
+        ['This is',  3, 'p',   3],
+        ['some',     3, 'b',   4],
+        ['content',  3, 'p',   3],
+        ['bye',      4, 'div', 2]
+    ]
+    res = []
+    def callback(content, block_id, html_tag, dom_level):
+        res.append([content,block_id,html_tag,dom_level])
+    parser.parseHTML(files_root + 'normal.html', callback)
+    assert res == truth

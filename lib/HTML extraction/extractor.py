@@ -58,7 +58,7 @@ def __store_content(res,content,i):
         res[i] = content
     return i
 
-def __crawl(elements, i, res, acc, callback, formatting=False):
+def __crawl(elements, i, res, acc, parent_tag, dom_level, callback, formatting=False):
     '''Recursively parse each element as block.
 
     Parameters:
@@ -74,14 +74,19 @@ def __crawl(elements, i, res, acc, callback, formatting=False):
         it (bool): Indicates if it has iterate over element at least once.
     '''
     it = False
+    dom_level += 1
     for el in elements:
         it = True
         # This is a formatting block
         # Will only accumulate the content
         if(formatting or el.tag in __formatting_tags):
             a = __gettext(el)
-            (b,i,ite) = __crawl(el,i,res,'',callback,formatting=True)
+            if(a is not ''):
+                callback(a,i+1,el.tag,dom_level)
+            (b,i,ite) = __crawl(el,i,res,'',el.tag,dom_level,callback,formatting=True)
             c = __gettail(el)
+            if(c is not ''):
+                callback(c,i+1,parent_tag,dom_level-1)
             acc += ' ' + a + ' ' + b + ' ' + c
 
         # Got a block tag
@@ -93,8 +98,10 @@ def __crawl(elements, i, res, acc, callback, formatting=False):
                 acc = ''
             # Push the content and crawl children
             a = __gettext(el)
+            if(a is not ''):
+                callback(a,i+1,el.tag,dom_level)
             acc += ' ' + a
-            (b,i,ite) = __crawl(el,i,res,acc,callback)
+            (b,i,ite) = __crawl(el,i,res,acc,el.tag,dom_level,callback)
             # It there is no children we need to
             # manually save the block
             if(not ite):
@@ -105,6 +112,8 @@ def __crawl(elements, i, res, acc, callback, formatting=False):
             else:
                 i = __store_content(res,b,i)
             c = __gettail(el)
+            if(c is not ''):
+                callback(c,i+1,parent_tag,dom_level-1)
             acc = c
 
     return (acc,i,it)
@@ -126,7 +135,8 @@ def parseHTML(source, callback=None):
         return res
     context = etree.parse(source)
     if(callback is None):
-        def callback(*args):
+        def callback(content,block_id,html_tag,dom_level):
+            print("Content: ", content, " \t block_id: ", block_id, " \t html_tag: ", html_tag, " \t dom_level: ", dom_level)
             return
-    __crawl(context.getroot().iterchildren(), 0, res, '', callback)
+    __crawl(context.getroot().iterchildren(), 0, res, '', '', 0, callback)
     return res
