@@ -32,7 +32,7 @@ result = parser.parseHTML('file.html')
 It is possible to give as second argument a function that will be called for
 each HTML tag parsed, as the following:
 
-```
+```python
 callback(content, block_id, html_tag, dom_level, is_formatting)
 ```
 
@@ -42,7 +42,7 @@ block. This happens in formatting blocks.
 
 Example with a callback:
 
-```
+```python
 import htmlextractor as parser
 
 def callback(content, block_id, html_tag, dom_level, is_formatting):
