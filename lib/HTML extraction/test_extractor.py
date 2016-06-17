@@ -58,3 +58,10 @@ def test_full_content():
         19: 'e5', 20: 'e6', 21: 'e7', 22: 'e8 e9 e10 e11'
     }
     assert parser.parseHTML(files_root + 'full_content.html') == truth
+
+def test_utf8_content():
+    truth = {
+        1: 'Title',
+        2: 'é à ü'
+    }
+    assert parser.parseHTML(files_root + 'utf8_content.html') == truth
