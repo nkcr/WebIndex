@@ -26,6 +26,7 @@ Module usage:
                         in an already existing block. This happens in formatting
                         blocks.
                     rel_pos (int): Indicates the position relative to the block.
+                    path (string): The path given to parse the file.
 
 Author: Noémien Kocher
 Licence: MIT
@@ -145,6 +146,7 @@ def parseHTML(source, callback=None):
                         in an already existing block. This happens in formatting
                         blocks.
                     rel_pos (int): Indicates the position relative to the block.
+                    path (string): The path given to parse the file.
 
     Returns:
         res (dict): Hash containing HTML blocks
@@ -153,9 +155,9 @@ def parseHTML(source, callback=None):
     if os.stat(source).st_size == 0:
         return res
     context = etree.parse(source)
-    if(callback is None):
-        def callback(content,block_id,html_tag,**kargs):
-            # print("Content: ", content, " \t block_id: ", block_id, " \t html_tag: ", html_tag, " \t dom_level: ", dom_level)
-            return
-    __crawl(context.getroot().iterchildren(), 0, res, '', '', 0, callback)
+    def __callback(content,block_id,html_tag,**kargs):
+        if(callback is not None):
+            callback(content,block_id,html_tag,**kargs,path=source)
+
+    __crawl(context.getroot().iterchildren(), 0, res, '', '', 0, __callback)
     return res
