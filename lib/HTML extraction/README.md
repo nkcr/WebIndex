@@ -40,6 +40,18 @@ The `dom_level` starts at 1 in the body and is incremented for each level.
 The `is_formatting` indicates that the content is part of an already existing
 block. This happens in formatting blocks.
 
+Example with a callback:
+
+```
+import htmlextractor as parser
+
+def callback(content, block_id, html_tag, dom_level, is_formatting):
+  ...
+
+result = {}
+result = parser.parseHTML('file.html', callback)
+```
+
 ## Test
 
 To launch tests :
