@@ -20,7 +20,9 @@ Module usage:
 
         callback (func): An optional function that is called when an HTML tag is
             parsed. Func takes as Parameters:
-                func(content, block_id, html_tag, dom_level)
+                func(content, block_id, html_tag, dom_level, is_formatting)
+            ``is_formatting`` indicates that the content is included in an already
+                existing block. This happens in formatting blocks.
 
 Author: Noémien Kocher
 Licence: MIT
@@ -70,7 +72,7 @@ def __crawl(elements, i, res, acc, parent_tag,
         parent_tag (strin): The parent tag as a string
         dom_level (int): The current dom_level. Body is at level 1
         callback (func): A function that is called for each html tag and takes
-            as params: func(content, block_id, html_tag, dom_level)
+            as params: func(content, block_id, html_tag, dom_level, is_formatting)
         formattting (bool): Indicates if it parses formatting blocks.
 
     Returns:
@@ -87,11 +89,11 @@ def __crawl(elements, i, res, acc, parent_tag,
         if(formatting or el.tag in __formatting_tags):
             a = __gettext(el)
             if(a is not ''):
-                callback(a,i+1,el.tag,dom_level)
+                callback(a,i+1,el.tag,dom_level,True)
             (b,i,ite) = __crawl(el,i,res,'',el.tag,dom_level,callback,formatting=True)
             c = __gettail(el)
             if(c is not ''):
-                callback(c,i+1,parent_tag,dom_level-1)
+                callback(c,i+1,parent_tag,dom_level-1,True)
             acc += ' ' + a + ' ' + b + ' ' + c
 
         # Got a block tag
@@ -104,7 +106,7 @@ def __crawl(elements, i, res, acc, parent_tag,
             # Push the content and crawl children
             a = __gettext(el)
             if(a is not ''):
-                callback(a,i+1,el.tag,dom_level)
+                callback(a,i+1,el.tag,dom_level,False)
             acc += ' ' + a
             (b,i,ite) = __crawl(el,i,res,acc,el.tag,dom_level,callback)
             # It there is no children we need to
@@ -118,7 +120,7 @@ def __crawl(elements, i, res, acc, parent_tag,
                 i = __store_content(res,b,i)
             c = __gettail(el)
             if(c is not ''):
-                callback(c,i+1,parent_tag,dom_level-1)
+                callback(c,i+1,parent_tag,dom_level-1,False)
             acc = c
 
     return (acc,i,it)
@@ -130,7 +132,9 @@ def parseHTML(source, callback=None):
         source (string): The path of the HTML file.
         callback (func): A function called for each HTML tag.
             Function takes as Parameters:
-                func(content, block_id, html_tag, dom_level)
+                func(content, block_id, html_tag, dom_level, is_formatting)
+            ``is_formatting`` indicates that the content is included in an already
+                existing block. This happens in formatting blocks.
 
     Returns:
         res (dict): Hash containing HTML blocks
@@ -140,7 +144,7 @@ def parseHTML(source, callback=None):
         return res
     context = etree.parse(source)
     if(callback is None):
-        def callback(content,block_id,html_tag,dom_level):
+        def callback(content,block_id,html_tag,dom_level, is_formatting):
             # print("Content: ", content, " \t block_id: ", block_id, " \t html_tag: ", html_tag, " \t dom_level: ", dom_level)
             return
     __crawl(context.getroot().iterchildren(), 0, res, '', '', 0, callback)

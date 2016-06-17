@@ -68,15 +68,15 @@ def test_utf8_content():
 
 def test_callback():
     truth = [
-        ['Title',    1,'title',2],
-        ['Big title',2,'h1',   3],
-        ['This is',  3, 'p',   3],
-        ['some',     3, 'b',   4],
-        ['content',  3, 'p',   3],
-        ['bye',      4, 'div', 2]
+        ['Title',    1,'title',2, False],
+        ['Big title',2,'h1',   3, False],
+        ['This is',  3, 'p',   3, False],
+        ['some',     3, 'b',   4, True],
+        ['content',  3, 'p',   3, True],
+        ['bye',      4, 'div', 2, False]
     ]
     res = []
-    def callback(content, block_id, html_tag, dom_level):
-        res.append([content,block_id,html_tag,dom_level])
+    def callback(content, block_id, html_tag, dom_level, is_formatting):
+        res.append([content,block_id,html_tag,dom_level,is_formatting])
     parser.parseHTML(files_root + 'normal.html', callback)
     assert res == truth

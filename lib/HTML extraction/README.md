@@ -17,6 +17,8 @@ gives :
 {1: 'Hello', 2: 'Folks are you ready ?', 3: 'Always!'}
 ```
 
+Iteration is guaranteed to be sequential in Depth-first search - in order.
+
 ## Usage
 
 ```python
