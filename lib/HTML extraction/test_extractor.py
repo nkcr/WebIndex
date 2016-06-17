@@ -1,5 +1,5 @@
 import pytest
-import extractor as parser
+import htmlextractor as parser
 
 files_root = 'test_files/'
 

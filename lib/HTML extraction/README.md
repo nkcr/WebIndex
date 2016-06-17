@@ -22,7 +22,7 @@ Iteration is guaranteed to be sequential in Depth-first search - in order.
 ## Usage
 
 ```python
-import extractor as parser
+import htmlextractor as parser
 
 result = {}
 result = parser.parseHTML('file.html')
