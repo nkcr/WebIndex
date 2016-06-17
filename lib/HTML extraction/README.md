@@ -33,10 +33,12 @@ It is possible to give as second argument a function that will be called for
 each HTML tag parsed, as the following:
 
 ```
-callback(content, block_id, html_tag, dom_level)
+callback(content, block_id, html_tag, dom_level, is_formatting)
 ```
 
-The `dom_level` starts at 1 in the body as is incremented for each level.
+The `dom_level` starts at 1 in the body as is incremented for each level.  
+The `is_sequential` indicates that the content is part of an already existing
+block. This happens in formatting blocks.
 
 ## Test
 
