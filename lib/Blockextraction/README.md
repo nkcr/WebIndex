@@ -6,7 +6,7 @@ Tokenizes a string block to an inverted index. For example, given the following
 parameters:
 
 ```python
-handle_block("Lorem-ipsum dolor", 12, 'p', path='file.html', rel_pos=10)
+handle_block("Lorem-ipsum dolor", 12, 'p', docid='docid', rel_pos=10)
 ```
 
 It will output an inverted index in the form:
