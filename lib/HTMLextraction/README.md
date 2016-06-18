@@ -29,27 +29,31 @@ result = parser.parseHTML('file.html')
 # result => {1: 'block1', 2: 'block2', ...}
 ```
 
-It is possible to give as second argument a function that will be called for
-each HTML tag parsed, as the following:
+It is possible to give as optional arguments the docId and a function that will
+be called for each HTML tag parsed, as the following:
 
 ```python
-callback(content, block_id, html_tag, dom_level, is_formatting)
+callback(content, block_id, html_tag, **kargs)
 ```
 
-The `dom_level` starts at 1 in the body and is incremented for each level.  
-The `is_formatting` indicates that the content is part of an already existing
-block. This happens in formatting blocks.
+`kargs` contains the following optional parameters:
+* dom_level (int): Indicates the dom level. Body is at 1.
+* formatting (bool): Indicates that the content is included
+        in an already existing block. This happens in formatting
+        blocks.
+* rel_pos (int): Indicates the position relative to the block.
+* path (string): The path given to parse the file.
 
-Example with a callback:
+Example with a docId and a callback:
 
 ```python
 import htmlextractor as parser
 
-def callback(content, block_id, html_tag, dom_level, is_formatting):
+def callback(content, block_id, html_tag, **kargs):
   ...
 
 result = {}
-result = parser.parseHTML('file.html', callback)
+result = parser.parseHTML('file.html', docid='id' callback=callback)
 ```
 
 ## Test

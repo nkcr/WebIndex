@@ -17,11 +17,12 @@ Module usage:
 
     Parameters:
         source (string): Path of the HTML file.
-
+        docid (string): The identifier of the document
         callback (func): An optional function that is called when an HTML tag is
             parsed. Func takes as Parameters:
                 func(content, block_id, html_tag, **kargs)
                 kargs:
+                    dom_level (int): Indicates the dom level. Body is at 1.
                     formatting (bool): Indicates that the content is included
                         in an already existing block. This happens in formatting
                         blocks.
@@ -133,15 +134,17 @@ def __crawl(elements, i, res, acc, parent_tag,
 
     return (acc,i,it)
 
-def parseHTML(source, callback=None):
+def parseHTML(source, docid=None, callback=None):
     '''Parses an HTML file to blocks.
 
     Parameters:
         source (string): The path of the HTML file.
+        docid (string): The identifier of the document
         callback (func): An optional function that is called when an HTML tag is
             parsed. Func takes as Parameters:
                 func(content, block_id, html_tag, **kargs)
                 kargs:
+                    dom_level (int): Indicates the dom level. Body is at 1.
                     formatting (bool): Indicates that the content is included
                         in an already existing block. This happens in formatting
                         blocks.
@@ -157,7 +160,7 @@ def parseHTML(source, callback=None):
     context = etree.parse(source)
     def __callback(content,block_id,html_tag,**kargs):
         if(callback is not None):
-            callback(content,block_id,html_tag,path=source,**kargs)
+            callback(content,block_id,html_tag,path=source,docid=docid,**kargs)
 
     __crawl(context.getroot().iterchildren(), 0, res, '', '', 0, __callback)
     return res

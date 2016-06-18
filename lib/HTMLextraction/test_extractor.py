@@ -78,17 +78,17 @@ def test_utf8_content():
 def test_callback():
     source = files_root + 'normal.html'
     truth = [
-        ['Title',    1,'title',2, False, 0,  source],
-        ['Big title',2,'h1',   3, False, 0,  source],
-        ['This is',  3, 'p',   3, False, 0,  source],
-        ['some',     3, 'b',   4, True,  8,  source],
-        ['content',  3, 'p',   3, True,  12, source],
-        ['bye',      4, 'div', 2, False, 0,  source]
+        ['Title',    1,'title',2, False, 0,  source, 'docid'],
+        ['Big title',2,'h1',   3, False, 0,  source, 'docid'],
+        ['This is',  3, 'p',   3, False, 0,  source, 'docid'],
+        ['some',     3, 'b',   4, True,  8,  source, 'docid'],
+        ['content',  3, 'p',   3, True,  12, source, 'docid'],
+        ['bye',      4, 'div', 2, False, 0,  source, 'docid']
     ]
     res = []
     def callback(content, block_id, html_tag, **kargs):
         res.append([content,block_id,html_tag,
             kargs['dom_level'],kargs['formatting'],
-            kargs['rel_pos'],kargs['path']])
-    parser.parseHTML(source, callback)
+            kargs['rel_pos'],kargs['path'],kargs['docid']])
+    parser.parseHTML(source, docid='docid', callback=callback)
     assert res == truth

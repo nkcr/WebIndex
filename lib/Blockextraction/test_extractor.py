@@ -12,15 +12,14 @@ import blockextractor as parser
 
 # Test the parsing of a block with the method 'handle_block'
 def test_handleblock():
-    engine = parser.BlockExtractor()
     content = 'Lorèm-dolor sit dolor'
     block_id = 12
     html_tag = 'p'
     rel_pos = 10
     dom_level = 3
     path = 'path'
-    (docId, res) = engine.handle_block(content, block_id, html_tag,
-        dom_level=dom_level, rel_pos=rel_pos, path=path)
+    docId = 'docid'
+
     truth = {
         'lorèm': [ # wordId
             0, {   # rank
@@ -51,6 +50,9 @@ def test_handleblock():
             }
         ]
     }
+    engine = parser.BlockExtractor()
+    (_, res) = engine.handle_block(content, block_id, html_tag,
+        dom_level=dom_level, rel_pos=rel_pos, path=path, docid=docId)
     assert res == truth
 
 # Test the case of an update of the inverted index with method 'update_ii'
@@ -191,3 +193,76 @@ def test_empti_ii_update():
     engine = parser.BlockExtractor()
     engine.update_ii(local_ii, 'did3')
     assert engine.ii == local_ii
+
+def test_existing_update():
+    ii = {
+        'tree': [ 0, { # rank
+            'did1': [ 0, 0, { # nbHit, rank
+                ('tree', 'did1'): [  # the hitlist
+                    ['bid1', 12, 1], # blockId, position, domLevel
+                    ['bid2', 10, 2]
+                ]
+            } ],
+            'did2': [ 0, 0, {
+                ('tree', 'did2'): [
+                    ['bid1', 1, 3]
+                ]
+            } ]
+        } ],
+        'cat': [ 0, {
+            'did1': [ 0, 0, {
+                ('cat', 'did1'): [
+                    ['bid1', 30, 1]
+                ]
+            } ]
+        } ]
+    }
+    local_ii = {
+        'tree': [ 0, {
+            'did2': [ 0, 0, {
+                ('tree', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13]
+                ]
+            } ]
+        } ],
+        'cat': [ 0, {
+            'did2': [ 0, 0, {
+                ('cat', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13],
+                    ['bid3', 15, 13]
+                ]
+            } ]
+        } ]
+    }
+    truth = {
+        'tree': [ 0, { # rank
+            'did1': [ 0, 0, { # nbHit, rank
+                ('tree', 'did1'): [  # the hitlist
+                    ['bid1', 12, 1], # blockId, position, domLevel
+                    ['bid2', 10, 2]
+                ]
+            } ],
+            'did2': [ 0, 0, {
+                ('tree', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13]
+                ]
+            } ]
+        } ],
+        'cat': [ 0, {
+            'did1': [ 0, 0, {
+                ('cat', 'did1'): [
+                    ['bid1', 30, 1]
+                ]
+            } ],
+            'did2': [ 0, 0, {
+                ('cat', 'did2'): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13],
+                    ['bid3', 15, 13]
+                ]
+            } ]
+        } ]
+    }

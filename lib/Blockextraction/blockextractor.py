@@ -54,7 +54,7 @@ class BlockExtractor:
         The 'hitListId' is a tuple of (wordId, docId).
         '''
         cur_pos = kargs['rel_pos'] # current position
-        docId = kargs['path'] + '-' + uuid.uuid4().hex
+        docId = kargs['docid']
         content = content.lower()
         terms = re.split('\W', content)
 
