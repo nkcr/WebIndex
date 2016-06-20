@@ -7,6 +7,8 @@ Date: june 2016
 
 from math import log
 import operator
+import codecs, json
+import os
 
 def settfidf(repo, ii):
     '''Update each (word,doc) rank with tf-idf algorithm.
@@ -34,3 +36,19 @@ def mostranked(quantity, ii):
     '''
     keys = sorted(ii, key=lambda k: ii[k][0], reverse=True)
     return keys[:quantity]
+
+def saveii(path, ii):
+    try:
+        os.remove(path)
+    except OSError:
+        pass
+    with codecs.open(path, 'w', 'utf8') as f:
+        f.write(json.dumps(ii, f, ensure_ascii=False, indent=4, sort_keys=True))
+
+def saverepo(path, repo):
+    try:
+        os.remove(path)
+    except OSError:
+        pass
+    with codecs.open(path, 'w', 'utf8') as f:
+        f.write(json.dumps(repo, f, ensure_ascii=False, indent=4, sort_keys=True))

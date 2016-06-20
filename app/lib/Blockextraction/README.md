@@ -16,10 +16,10 @@ It will output an inverted index in the form:
   wordId: [
     rank, {
       docId: [
-        nbHit, rank, {
+        nbHit, rank,[
           [blockId, position, domLevel],
           ...
-        }
+        ]
       ],
       ...
     }

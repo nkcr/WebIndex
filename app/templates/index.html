@@ -12,5 +12,13 @@
          <input type=submit value=Upload>
     </form>
 
+    <table>
+      {% for word in best %}
+      <tr>
+        <td>{{ word }}
+      </tr>
+      {% endfor %}
+    </table>
+
   </body>
 </html>

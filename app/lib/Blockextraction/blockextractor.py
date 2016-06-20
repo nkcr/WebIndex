@@ -12,13 +12,16 @@ import uuid
 class BlockExtractor:
 
     def __init__(self):
-        self.ii = defaultdict(lambda: [ 0, defaultdict(lambda:
-             [0,0, defaultdict(lambda: []) ]) ])
+        self.ii = defaultdict(lambda: [ 0, defaultdict(lambda: [0,0,[]]) ])
         self.normssq = defaultdict(int)
 
     def update_ii(self, hash, docId):
-        for key, value in hash.items():
-            self.ii[key][1][docId] = value[1][docId]
+        for key in hash:
+            if(docId in self.ii[key][1]):
+                self.ii[key][1][docId][2].extend(hash[key][1][docId][2])
+                self.ii[key][1][docId][0] += hash[key][1][docId][0]
+            else:
+                self.ii[key][1][docId] = hash[key][1][docId]
 
     def update_norms(self, hash, docId):
         for key, value in hash.items():
@@ -41,12 +44,10 @@ class BlockExtractor:
                 [rank,
                     {docId:
                         [nbHit,rank,
-                            {hitListId:
-                                [
-                                    [blockId,position,domLevel],
-                                    ...
-                                ]
-                            }
+                            [ # hitList
+                                [blockId,position,domLevel],
+                                ...
+                            ]
                         ]
                     }
                 ]
@@ -66,12 +67,11 @@ class BlockExtractor:
 
         # ii = Inverted Index
         local_ii = defaultdict(lambda: [ 0, defaultdict(lambda:
-             [0,0, defaultdict(lambda: []) ]) ])
+             [0,0,[] ]) ])
         for term in terms:
             if(term is not ''):
                 hit = [ block_id, cur_pos, kargs['dom_level'] ]
-                hitlistId = (term,docId)
-                local_ii[term][1][docId][2][hitlistId].append(hit)
+                local_ii[term][1][docId][2].append(hit)
                 local_ii[term][1][docId][0] += 1
             cur_pos += 1 + len(term)
         self.update_ii(local_ii, docId)

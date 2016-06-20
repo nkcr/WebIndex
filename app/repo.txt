@@ -1,0 +1,107 @@
+{
+    "uploads/test_files_empty.html-170f3114-36e4-11e6-a73f-0026b0db697e": [
+        "url",
+        0.0,
+        {}
+    ],
+    "uploads/test_files_formatting_blocks.html-17111650-36e4-11e6-ac70-0026b0db697e": [
+        "url",
+        2.449489742783178,
+        {
+            "1": "Title",
+            "2": "Tags can highlight important elements ."
+        }
+    ],
+    "uploads/test_files_full_content.html-171151c6-36e4-11e6-a6a1-0026b0db697e": [
+        "url",
+        5.916079783099616,
+        {
+            "1": "Title",
+            "2": "a1",
+            "3": "a2",
+            "4": "c1 c2 c3 c4",
+            "5": "a3",
+            "6": "a4",
+            "7": "a5",
+            "8": "a6",
+            "9": "a7 a8",
+            "10": "a9",
+            "11": "a10",
+            "12": "a11 a12 b13",
+            "13": "a13",
+            "14": "a14 a15 a16 b17 a17",
+            "15": "e1",
+            "16": "e2",
+            "17": "e3",
+            "18": "e4",
+            "19": "e5",
+            "20": "e6",
+            "21": "e7",
+            "22": "e8 e9 e10 e11"
+        }
+    ],
+    "uploads/test_files_nested_blocks.html-1711a3ae-36e4-11e6-a431-0026b0db697e": [
+        "url",
+        3.0,
+        {
+            "1": "Title",
+            "2": "This",
+            "3": "is",
+            "4": "so",
+            "5": "nested!",
+            "6": "Not",
+            "7": "that",
+            "8": "hard",
+            "9": "indeed."
+        }
+    ],
+    "uploads/test_files_nested_formatting.html-1711cdfe-36e4-11e6-8ea9-0026b0db697e": [
+        "url",
+        3.0,
+        {
+            "1": "Title",
+            "2": "Tags can be nested . This makes me happy."
+        }
+    ],
+    "uploads/test_files_no_content.html-1711f212-36e4-11e6-815a-0026b0db697e": [
+        "url",
+        0.0,
+        {}
+    ],
+    "uploads/test_files_normal.html-171200f6-36e4-11e6-aeb6-0026b0db697e": [
+        "url",
+        2.8284271247461903,
+        {
+            "1": "Title",
+            "2": "Big title",
+            "3": "This is some content",
+            "4": "bye"
+        }
+    ],
+    "uploads/test_files_simple.html-17121802-36e4-11e6-8167-0026b0db697e": [
+        "url",
+        1.4142135623730951,
+        {
+            "1": "Title",
+            "2": "Content"
+        }
+    ],
+    "uploads/test_files_special_formatting.html-1712291e-36e4-11e6-b764-0026b0db697e": [
+        "url",
+        3.3166247903554,
+        {
+            "1": "Title",
+            "2": "a1 a2 a3 a4 a5 a6 a7 a8",
+            "3": "a9",
+            "4": "a10"
+        }
+    ],
+    "uploads/test_files_utf8_content.html-1712487a-36e4-11e6-9ab3-0026b0db697e": [
+        "url",
+        2.0,
+        {
+            "1": "Title",
+            "2": "é à ü"
+        }
+    ]
+}
