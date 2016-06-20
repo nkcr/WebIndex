@@ -135,6 +135,7 @@ def test_update_ii():
     }
     engine = parser.BlockExtractor()
     engine.ii = ii
+    assert engine.ii != truth
     engine.update_ii(local_ii, 'did3')
     assert engine.ii == truth
 
@@ -165,12 +166,12 @@ def test_empty_param_update():
     local_ii = {}
     engine = parser.BlockExtractor()
     engine.ii = ii
+    assert engine.ii == ii
     engine.update_ii(local_ii, 'did3')
     assert engine.ii == ii
 
 # Test the first update, when the inverted index is empty
 def test_empti_ii_update():
-    ii = {}
     local_ii = {
         'tree': [ 0, {
             'did3': [ 0, 0, {
@@ -191,6 +192,7 @@ def test_empti_ii_update():
         } ]
     }
     engine = parser.BlockExtractor()
+    assert engine.ii != local_ii
     engine.update_ii(local_ii, 'did3')
     assert engine.ii == local_ii
 
@@ -266,3 +268,8 @@ def test_existing_update():
             } ]
         } ]
     }
+    engine = parser.BlockExtractor()
+    engine.ii = ii
+    assert engine.ii != truth
+    engine.update_ii(local_ii, 'did2')
+    assert engine.ii == truth
