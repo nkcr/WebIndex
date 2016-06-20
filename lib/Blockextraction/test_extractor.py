@@ -143,20 +143,20 @@ def test_update_ii():
 def test_empty_param_update():
     ii = {
         'tree': [ 0, { # rank
-            'did1': [ 0, 0, { # nbHit, rank
+            'did1': [ 2, 0, { # nbHit, rank
                 ('tree', 'did1'): [  # the hitlist
                     ['bid1', 12, 1], # blockId, position, domLevel
                     ['bid2', 10, 2]
                 ]
             } ],
-            'did2': [ 0, 0, {
+            'did2': [ 1, 0, {
                 ('tree', 'did2'): [
                     ['bid1', 1, 3]
                 ]
             } ]
         } ],
         'cat': [ 0, {
-            'did1': [ 0, 0, {
+            'did1': [ 1, 0, {
                 ('cat', 'did1'): [
                     ['bid1', 30, 1]
                 ]
@@ -174,7 +174,7 @@ def test_empty_param_update():
 def test_empti_ii_update():
     local_ii = {
         'tree': [ 0, {
-            'did3': [ 0, 0, {
+            'did3': [ 2, 0, {
                 ('tree', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13]
@@ -182,7 +182,7 @@ def test_empti_ii_update():
             } ]
         } ],
         'cat': [ 0, {
-            'did3': [ 0, 0, {
+            'did3': [ 2, 0, {
                 ('cat', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13],
@@ -199,20 +199,20 @@ def test_empti_ii_update():
 def test_existing_update():
     ii = {
         'tree': [ 0, { # rank
-            'did1': [ 0, 0, { # nbHit, rank
+            'did1': [ 2, 0, { # nbHit, rank
                 ('tree', 'did1'): [  # the hitlist
                     ['bid1', 12, 1], # blockId, position, domLevel
                     ['bid2', 10, 2]
                 ]
             } ],
-            'did2': [ 0, 0, {
+            'did2': [ 1, 0, {
                 ('tree', 'did2'): [
                     ['bid1', 1, 3]
                 ]
             } ]
         } ],
         'cat': [ 0, {
-            'did1': [ 0, 0, {
+            'did1': [ 1, 0, {
                 ('cat', 'did1'): [
                     ['bid1', 30, 1]
                 ]
@@ -221,7 +221,7 @@ def test_existing_update():
     }
     local_ii = {
         'tree': [ 0, {
-            'did2': [ 0, 0, {
+            'did2': [ 2, 0, {
                 ('tree', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13]
@@ -229,7 +229,7 @@ def test_existing_update():
             } ]
         } ],
         'cat': [ 0, {
-            'did2': [ 0, 0, {
+            'did2': [ 3, 0, {
                 ('cat', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13],
@@ -240,13 +240,13 @@ def test_existing_update():
     }
     truth = {
         'tree': [ 0, { # rank
-            'did1': [ 0, 0, { # nbHit, rank
+            'did1': [ 2, 0, { # nbHit, rank
                 ('tree', 'did1'): [  # the hitlist
                     ['bid1', 12, 1], # blockId, position, domLevel
                     ['bid2', 10, 2]
                 ]
             } ],
-            'did2': [ 0, 0, {
+            'did2': [ 2, 0, {
                 ('tree', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13]
@@ -254,12 +254,12 @@ def test_existing_update():
             } ]
         } ],
         'cat': [ 0, {
-            'did1': [ 0, 0, {
+            'did1': [ 1, 0, {
                 ('cat', 'did1'): [
                     ['bid1', 30, 1]
                 ]
             } ],
-            'did2': [ 0, 0, {
+            'did2': [ 3, 0, {
                 ('cat', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13],
@@ -273,3 +273,30 @@ def test_existing_update():
     assert engine.ii != truth
     engine.update_ii(local_ii, 'did2')
     assert engine.ii == truth
+
+def test_norms_update():
+    docid = 'did2'
+    ii = {
+        'tree': [ 0, {
+            docid: [ 2, 0, {
+                ('tree', docid): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13]
+                ]
+            } ]
+        } ],
+        'cat': [ 0, {
+            docid: [ 3, 0, {
+                ('cat', docid): [
+                    ['bid1', 200, 12],
+                    ['bid2', 10, 13],
+                    ['bid3', 15, 13]
+                ]
+            } ]
+        } ]
+    }
+    engine = parser.BlockExtractor()
+    engine.ii = ii
+    assert engine.normssq[docid] == 0
+    engine.update_norms(ii, docid)
+    assert engine.normssq[docid] == 9+4

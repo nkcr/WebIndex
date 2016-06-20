@@ -14,10 +14,16 @@ class BlockExtractor:
     def __init__(self):
         self.ii = defaultdict(lambda: [ 0, defaultdict(lambda:
              [0,0, defaultdict(lambda: []) ]) ])
+        self.normssq = defaultdict(int)
 
     def update_ii(self, hash, docId):
         for key, value in hash.items():
             self.ii[key][1][docId] = value[1][docId]
+
+    def update_norms(self, hash, docId):
+        for key, value in hash.items():
+            count = value[1][docId][0]
+            self.normssq[docId] += count*count
 
     def handle_block(self, content, block_id, html_tag, **kargs):
         '''Parse a block to an inverted index
@@ -69,4 +75,5 @@ class BlockExtractor:
                 local_ii[term][1][docId][0] += 1
             cur_pos += 1 + len(term)
         self.update_ii(local_ii, docId)
+        self.update_norms(local_ii, docId)
         return (docId, local_ii)

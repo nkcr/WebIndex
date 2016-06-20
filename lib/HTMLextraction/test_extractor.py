@@ -9,8 +9,9 @@ Date: june 2016
 
 import pytest
 import htmlextractor as parser
+import os
 
-files_root = 'test_files/'
+files_root = os.path.abspath('test_files') + '/'
 
 def test_empty():
     truth = {}
