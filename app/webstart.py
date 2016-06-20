@@ -5,11 +5,19 @@ import webindex as wi
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = set(['html'])
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = 'bad_secret'
+
+def cut_filter(s):
+    return round(s,2)
+app.jinja_env.filters['cut'] = cut_filter
+
+def percent_filter(s):
+    return round(s,2)*10
+app.jinja_env.filters['percent'] = percent_filter
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -34,7 +42,6 @@ def index():
             flash('No file part')
             return redirect(request.url)
         files = request.files.getlist("file")
-        print('Files are: ', request.files)
         # if user does not select file, browser also
         # submit a empty part without filename
         if not files:
@@ -49,7 +56,9 @@ def index():
                 webindex.handlefile(filepath)
             else:
                 flash('Found unallowed file extension: ' + file.filename)
-        best = webindex.mostranked()
+        best = webindex.mostranked(100)
         webindex.saveii()
         webindex.saverepo()
+    else:
+        best = {}
     return render_template('index.html', best=best)

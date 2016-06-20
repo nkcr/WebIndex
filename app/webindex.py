@@ -16,7 +16,7 @@ class Webindex:
         '''
         docid = path# + '-' + str(uuid.uuid1())
         blocks = parser.parseHTML(path, docid=docid, callback=self.engine.handle_block)
-        self.repo[docid] = [ 'url', sqrt(float(self.engine.normssq[docid])), blocks ]
+        self.repo[docid] = [ path[7:], sqrt(float(self.engine.normssq[docid])), blocks ]
 
     def update(self, quantity=10):
         '''Compute the tf-idf and update word ranks. Return the n best words.
@@ -31,9 +31,7 @@ class Webindex:
         '''
         keys = self.update(quantity)
         res = []
-        offset = 20
-        print('#########')
-        print(keys)
+        offset = 40
         for k in keys:
             for docid, value in self.getii()[k][1].items():
                 hit = value[2][0]
@@ -50,7 +48,7 @@ class Webindex:
                 wafter = content[position+len(k):endi]
                 if(endi < len(content)):
                     wafter = wafter + '...'
-                res.append([k,self.getii()[k][0],wbefore,wafter])
+                res.append([k,self.getii()[k][0],wbefore,wafter,self.repo[docid][0]])
         return res
 
     def test(self):

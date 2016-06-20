@@ -5,3 +5,4 @@ __pycache__/
 .cache/
 app/documents
 app/uploads
+app/static/uploads
