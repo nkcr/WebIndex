@@ -1,7 +1,7 @@
 from flask import Flask, render_template, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os, shutil
-import webindex as webindex
+import webindex as wi
 
 app = Flask(__name__)
 
@@ -27,7 +27,7 @@ def clean_folder(path):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    best = []
+    webindex = wi.Webindex()
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -49,7 +49,7 @@ def index():
                 webindex.handlefile(filepath)
             else:
                 flash('Found unallowed file extension: ' + file.filename)
-        best = webindex.update(100)
+        best = webindex.mostranked()
         webindex.saveii()
         webindex.saverepo()
     return render_template('index.html', best=best)

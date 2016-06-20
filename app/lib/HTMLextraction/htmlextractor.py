@@ -155,6 +155,9 @@ def parseHTML(source, docid=None, callback=None):
         res (dict): Hash containing HTML blocks
     '''
     res = {}
+    print('########## ###')
+    print(source)
+    print('########## ###')
     if os.stat(source).st_size == 0:
         return res
     context = etree.parse(source)

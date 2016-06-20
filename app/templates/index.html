@@ -15,7 +15,8 @@
     <table>
       {% for word in best %}
       <tr>
-        <td>{{ word }}
+        <td>{{ word[1] }}</td>
+        <td>{{ word[2] }} <b>{{ word[0] }}</b> {{ word[3] }}
       </tr>
       {% endfor %}
     </table>
