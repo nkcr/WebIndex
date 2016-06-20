@@ -66,6 +66,7 @@ class BlockExtractor:
                 hit = [ block_id, cur_pos, kargs['dom_level'] ]
                 hitlistId = (term,docId)
                 local_ii[term][1][docId][2][hitlistId].append(hit)
+                local_ii[term][1][docId][0] += 1
             cur_pos += 1 + len(term)
         self.update_ii(local_ii, docId)
         return (docId, local_ii)

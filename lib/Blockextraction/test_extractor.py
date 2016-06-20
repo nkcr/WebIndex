@@ -23,7 +23,7 @@ def test_handleblock():
     truth = {
         'lorèm': [ # wordId
             0, {   # rank
-                docId: [0, 0, {  # docId, nbHits, rank
+                docId: [1, 0, {  # nbHits, rank
                     ('lorèm',docId): [ # hitlistId
                         [12,10,3] # blockId, position, domLevel
                     ]
@@ -32,7 +32,7 @@ def test_handleblock():
         ],
         'dolor': [
             0, {
-                docId: [0, 0, {
+                docId: [2, 0, {
                     ('dolor',docId): [
                         [12,16,3],
                         [12,26,3]
@@ -42,7 +42,7 @@ def test_handleblock():
         ],
         'sit': [
             0, {
-                docId: [0, 0, {
+                docId: [1, 0, {
                     ('sit',docId): [
                         [12,22,3]
                     ]
@@ -59,20 +59,20 @@ def test_handleblock():
 def test_update_ii():
     ii = {
         'tree': [ 0, { # rank
-            'did1': [ 0, 0, { # nbHit, rank
+            'did1': [ 2, 0, { # nbHit, rank
                 ('tree', 'did1'): [  # the hitlist
                     ['bid1', 12, 1], # blockId, position, domLevel
                     ['bid2', 10, 2]
                 ]
             } ],
-            'did2': [ 0, 0, {
+            'did2': [ 1, 0, {
                 ('tree', 'did2'): [
                     ['bid1', 1, 3]
                 ]
             } ]
         } ],
         'cat': [ 0, {
-            'did1': [ 0, 0, {
+            'did1': [ 1, 0, {
                 ('cat', 'did1'): [
                     ['bid1', 30, 1]
                 ]
@@ -81,7 +81,7 @@ def test_update_ii():
     }
     local_ii = {
         'tree': [ 0, {
-            'did3': [ 0, 0, {
+            'did3': [ 2, 0, {
                 ('tree', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13]
@@ -89,7 +89,7 @@ def test_update_ii():
             } ]
         } ],
         'cat': [ 0, {
-            'did3': [ 0, 0, {
+            'did3': [ 3, 0, {
                 ('cat', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13],
@@ -100,18 +100,18 @@ def test_update_ii():
     }
     truth = {
         'tree': [ 0, { # rank
-            'did1': [ 0, 0, { # nbHit, rank
+            'did1': [ 2, 0, { # nbHit, rank
                 ('tree', 'did1'): [  # the hitlist
                     ['bid1', 12, 1], # blockId, position, domLevel
                     ['bid2', 10, 2]
                 ]
             } ],
-            'did2': [ 0, 0, {
+            'did2': [ 1, 0, {
                 ('tree', 'did2'): [
                     ['bid1', 1, 3]
                 ]
             } ],
-            'did3': [ 0, 0, {
+            'did3': [ 2, 0, {
                 ('tree', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13]
@@ -119,12 +119,12 @@ def test_update_ii():
             } ]
         } ],
         'cat': [ 0, {
-            'did1': [ 0, 0, {
+            'did1': [ 1, 0, {
                 ('cat', 'did1'): [
                     ['bid1', 30, 1]
                 ]
             } ],
-            'did3': [ 0, 0, {
+            'did3': [ 3, 0, {
                 ('cat', 'did2'): [
                     ['bid1', 200, 12],
                     ['bid2', 10, 13],

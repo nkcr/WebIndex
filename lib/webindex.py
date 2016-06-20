@@ -4,8 +4,10 @@ import Blockextraction.blockextractor as blockextractor
 engine = blockextractor.BlockExtractor()
 
 def handlefile(path):
-    parser.parseHTML(path, engine.handle_block)
+    blocks = parser.parseHTML(path, callback=engine.handle_block)
 
-handlefile('HTMLextraction/test_files/simple.html')
+def test():
+    handlefile('HTMLextraction/test_files/simple.html')
 
-print(engine.ii)
+def getii():
+    return engine.ii
