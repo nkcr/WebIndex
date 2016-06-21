@@ -2,6 +2,8 @@ import lib.HTMLextraction.htmlextractor as parser
 import lib.Blockextraction.blockextractor as blockextractor
 import lib.Indexengine.indexengine as iengine
 import uuid
+import csv
+import glob
 from math import sqrt
 
 class Webindex:
@@ -33,6 +35,8 @@ class Webindex:
         res = []
         offset = 40
         for k in keys:
+            occurs = []
+            wordoccur = [k,self.getii()[k][0],occurs]
             for docid, value in self.getii()[k][1].items():
                 hit = value[2][0]
                 blockid = hit[0]
@@ -48,7 +52,8 @@ class Webindex:
                 wafter = content[position+len(k):endi]
                 if(endi < len(content)):
                     wafter = wafter + '...'
-                res.append([k,self.getii()[k][0],wbefore,wafter,self.repo[docid][0]])
+                occurs.append([wbefore,wafter,self.repo[docid][0]])
+            res.append(wordoccur)
         return res
 
     def test(self):
@@ -69,3 +74,17 @@ class Webindex:
 
     def saverepo(self):
         iengine.saverepo('repo.txt', self.repo)
+
+    def savestats(self, path, quantity=100):
+        keys = self.update(quantity)
+
+        with open(path, 'w') as csvfile:
+            spamwriter = csv.writer(csvfile)
+            for k in keys:
+                spamwriter.writerow([k,round(self.getii()[k][0],2)])
+
+webindex = Webindex()
+files = glob.glob('documents/TIF_FR/*.html')
+for file in files:
+    webindex.handlefile(file)
+webindex.savestats('test.csv')

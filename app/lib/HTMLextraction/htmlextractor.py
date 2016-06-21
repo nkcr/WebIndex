@@ -38,7 +38,7 @@ from lxml import etree
 import random
 import os
 
-__formatting_tags = ['b', 'em', 'i']
+__formatting_tags = ['b', 'em', 'i', 'a']
 '''List of tags that won't be considered as HTML blocks.
 '''
 

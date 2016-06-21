@@ -9,7 +9,7 @@ Date: june 2016
 
 import pytest
 import indexengine as iengine
-from math import log
+from math import log2
 
 def test_settfidf():
     # needed for the total number of documents and the norms
@@ -43,7 +43,7 @@ def test_settfidf():
             }
         ]
     }
-    newrank = (1/1.4)*log(2/1)
+    newrank = (1/1.4)*log2(2/1)
     truth = {
         'wid1': [
             0, {

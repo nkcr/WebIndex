@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title</title>
+    <title>WebIndex</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='design.css') }}">
   </head>
   <body>
     {{ get_flashed_messages() }}
-    <h1>Hello</h1>
+    <h1>WebIndex</h1>
 
     <form action="" method=post enctype=multipart/form-data>
       <p><input type=file name=file webkitdirectory directory multiple>
@@ -14,19 +15,35 @@
 
     <table>
       {% for word in best %}
-      <tr>
-        <td style="border-right: 1px solid rgba(0, 128, 0, 0.5);">
-          <div style="background-color:rgba(0, 128, 0, 0.26);
-                      width:{{ word[1] | percent }}px;
-                      height: 15px;">
-          </div>
-        </td>
-        <td style="padding:0 50px;">{{ word[1] | cut }}</td>
-        <td>{{ word[2] }} <b>{{ word[0] }}</b> {{ word[3] }}</td>
-        <td><a href="{{ url_for('static', filename=word[4]) }}">{{ word[4] }}</a></td>
-      </tr>
+        <tr onclick="$(this).next().toggle()" class="keyword">
+          <td class="kw"><b>{{ word[0] }}</b> ({{ word[2] | length }})</td>
+          <td class="stat">
+            <div style="width:{{ word[1] | percent }}px">
+            </div>
+          </td>
+          <td>{{ word[1] | cut }}</td>
+        </tr>
+        <tr class="occurs-wrapper">
+          <td class="occurs">
+            <table>
+              {% for occ in word[2] %}
+                <tr>
+                  <td>{{ occ[0] }} <b>{{ word[0] }}</b> {{ occ[1] }}</td>
+                  <td><a href="{{ url_for('static', filename=occ[2]) }}">{{ occ[2] }}</a></td>
+                </tr>
+              {% endfor %}
+            </table>
+          </td>
+        </tr>
       {% endfor %}
     </table>
 
+    <script type=text/javascript src="{{
+      url_for('static', filename='jquery-3.0.0.min.js') }}"></script>
+    <script>
+      $(document).ready(function(){
+        $('.occurs-wrapper').toggle();
+      });
+    </script>
   </body>
 </html>

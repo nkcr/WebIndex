@@ -69,7 +69,7 @@ class BlockExtractor:
         local_ii = defaultdict(lambda: [ 0, defaultdict(lambda:
              [0,0,[] ]) ])
         for term in terms:
-            if(term is not ''):
+            if(len(term) > 1):
                 hit = [ block_id, cur_pos, kargs['dom_level'] ]
                 local_ii[term][1][docId][2].append(hit)
                 local_ii[term][1][docId][0] += 1

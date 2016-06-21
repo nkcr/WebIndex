@@ -5,7 +5,7 @@ Licence: MIT
 Date: june 2016
 '''
 
-from math import log
+from math import log2
 import operator
 import codecs, json
 import os
@@ -20,7 +20,7 @@ def settfidf(repo, ii):
             n = len(repo)
             f_t = len(value[1])
             tf = f_td / norms
-            idf = log(n / f_t)
+            idf = log2(n / f_t)
             value2[1] = tf*idf
 
 def setwrank(ii):
