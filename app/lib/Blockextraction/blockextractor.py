@@ -8,12 +8,14 @@ Date: june 2016
 from collections import defaultdict
 import re
 import uuid
+from nltk.stem.porter import *
 
 class BlockExtractor:
 
     def __init__(self):
         self.ii = defaultdict(lambda: [ 0, defaultdict(lambda: [0,0,[]]) ])
         self.normssq = defaultdict(int)
+        self.stemmer = PorterStemmer()
 
     def update_ii(self, hash, docId):
         for key in hash:
@@ -70,6 +72,7 @@ class BlockExtractor:
              [0,0,[] ]) ])
         for term in terms:
             if(len(term) > 1):
+                term = self.stemmer.stem(term)
                 hit = [ block_id, cur_pos, kargs['dom_level'] ]
                 local_ii[term][1][docId][2].append(hit)
                 local_ii[term][1][docId][0] += 1

@@ -4,3 +4,4 @@
 * lxml
 * python3
 * Flask
+* nltk
