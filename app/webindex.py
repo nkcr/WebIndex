@@ -76,8 +76,9 @@ class Webindex:
         iengine.saverepo('repo.txt', self.repo)
 
     def savestats(self, path, quantity=100):
-        keys = self.update(quantity)
-
+        iengine.settfidf2(self.repo,self.getii())
+        iengine.setwrank(self.engine.ii)
+        keys = iengine.mostranked(quantity,self.getii())
         with open(path, 'w') as csvfile:
             spamwriter = csv.writer(csvfile)
             for k in keys:

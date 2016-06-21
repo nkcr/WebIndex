@@ -23,6 +23,21 @@ def settfidf(repo, ii):
             idf = log2(n / f_t)
             value2[1] = tf*idf
 
+def settfidf2(repo, ii):
+    '''Update each (word,doc) rank with tf-idf algorithm.
+    '''
+    for wordid, value in ii.items():
+        for docid, value2 in value[1].items():
+            f_td = value2[0]
+            norms = repo[docid][1]
+            n = len(repo)
+            f_t = len(value[1])
+            tf = f_td
+            idf = log2(n / f_t)
+            boost = 1
+            # if(repo[docid][2][])
+            value2[1] = (tf*idf*idf*boost) / norms
+
 def setwrank(ii):
     '''Set each word rank with the highest (word,doc) rank.
     '''
