@@ -8,14 +8,14 @@ Date: june 2016
 from collections import defaultdict
 import re
 import uuid
-from nltk.stem.porter import *
+# from nltk.stem.snowball import FrenchStemmer
 
 class BlockExtractor:
 
     def __init__(self):
         self.ii = defaultdict(lambda: [ 0, defaultdict(lambda: [0,0,[]]) ])
         self.normssq = defaultdict(int)
-        # self.stemmer = PorterStemmer()
+        # self.stemmer = FrenchStemmer()
 
     def update_ii(self, hash, docId):
         for key in hash:
