@@ -6,6 +6,7 @@ import csv
 import re
 import random
 from math import sqrt
+from nltk.stem.snowball import FrenchStemmer
 
 sys.path.append('../lib')
 import Blockextraction.blockextractor as extractor
@@ -87,6 +88,7 @@ def parse_index(path, savepath=None):
     '''
     fr_sw = importjson('resources/fr_stop_words.txt')
     en_sw = importjson('resources/en_stop_words.txt')
+    stemmer = FrenchStemmer()
     index_words = []
     with open(path) as csvfile:
         spamreader = csv.reader(csvfile)
@@ -96,7 +98,7 @@ def parse_index(path, savepath=None):
             terms = re.split('\W', content)
             index_words.extend(terms)
     index_words = [
-        item for item in index_words
+        item for item in index_words # stemmer.stem(item) for item...
         if item not in fr_sw and item not in en_sw and len(item) > 1
     ]
     index_words = list(set(index_words))
@@ -116,6 +118,9 @@ def get_best_words(quantity, iipath, savepath=None):
     return keys
 
 def compute_recall(indexwordspath, bestwordspath):
+    '''Compute the recall given the path of the index and the path of the best
+    words.
+    '''
     index = importjson(indexwordspath)
     best_words = importjson(bestwordspath)
     true_positive = len( set(index).intersection(best_words) )
@@ -125,7 +130,13 @@ def compute_recall(indexwordspath, bestwordspath):
     return recall
 
 def compute_full_recall(rank_func, sourcefolder, savefolder, variant, quantity):
+    '''This function is a shortcut to directly rank an inverted index, get the
+    best words and compute the recall.
+    The 'rank_func' takes as parameter 'sourcefolder, savefolder, variant'
+    '''
     rank_func(sourcefolder, savefolder, variant)
     best_words_path = savefolder + '/best' + str(quantity) + '.txt'
     get_best_words(quantity, savefolder+'/ii.txt', best_words_path)
     compute_recall('resources/index_words.txt', best_words_path)
+
+# python3 -c "import main; main.compute_full_recall(main.rank_tfidf,'ii-base','ii-tfidf2',2,1000)"
