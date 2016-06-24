@@ -27,7 +27,7 @@ def test_handleblock():
             0, {   # rank
                 docId: [1, 0,   # nbHits, rank
                     [ # hitlist
-                        [12,10,3] # blockId, position, domLevel
+                        [12, 10, 3, html_tag] # blockId, position, domLevel, html_tag
                     ]
                 ]
             }
@@ -36,9 +36,9 @@ def test_handleblock():
             0, {
                 docId: [3, 0,
                     [
-                        [block_id1,16,dom_level],
-                        [block_id1,26,dom_level],
-                        [block_id2,0+rel_pos,dom_level]
+                        [block_id1, 16,        dom_level, html_tag],
+                        [block_id1, 26,        dom_level, html_tag],
+                        [block_id2, 0+rel_pos, dom_level, html_tag]
                     ]
                 ]
             }
@@ -47,7 +47,7 @@ def test_handleblock():
             0, {
                 docId: [1, 0,
                     [
-                        [12,22,3]
+                        [12, 22, 3, html_tag]
                     ]
                 ]
             }

@@ -34,9 +34,16 @@ def settfidf2(repo, ii):
             f_t = len(value[1])
             tf = f_td
             idf = log2(n / f_t)
-            boost = 1
+            boost = 0
+            for hit in value2[2]:
+                idl = 1.0 / hit[2]
+                if(hit[3] in ['h1', 'h2', 'b', 'figcation', 'strong', 'em', 'h3', 'h4', 'cation']):
+                    idl += 1
+                if(idl > boost):
+                    boost = idl
             # if(repo[docid][2][])
-            value2[1] = (tf*idf*idf*boost) / norms
+            # value2[1] = (tf*idf*idf*boost) / norms
+            value2[1] = tf*idf*boost*boost*boost*boost / norms
 
 def setwrank(ii):
     '''Set each word rank with the highest (word,doc) rank.
@@ -52,18 +59,10 @@ def mostranked(quantity, ii):
     keys = sorted(ii, key=lambda k: ii[k][0], reverse=True)
     return keys[:quantity]
 
-def saveii(path, ii):
+def savejson(path, data):
     try:
         os.remove(path)
     except OSError:
         pass
     with codecs.open(path, 'w', 'utf8') as f:
-        f.write(json.dumps(ii, f, ensure_ascii=False, indent=4, sort_keys=True))
-
-def saverepo(path, repo):
-    try:
-        os.remove(path)
-    except OSError:
-        pass
-    with codecs.open(path, 'w', 'utf8') as f:
-        f.write(json.dumps(repo, f, ensure_ascii=False, indent=4, sort_keys=True))
+        f.write(json.dumps(data, f, ensure_ascii=False, indent=4, sort_keys=True))

@@ -47,7 +47,7 @@ class BlockExtractor:
                     {docId:
                         [nbHit,rank,
                             [ # hitList
-                                [blockId,position,domLevel],
+                                [blockId,position,domLevel,html_tag],
                                 ...
                             ]
                         ]
@@ -73,7 +73,7 @@ class BlockExtractor:
         for term in terms:
             if(len(term) > 1):
                 # term = self.stemmer.stem(term)
-                hit = [ block_id, cur_pos, kargs['dom_level'] ]
+                hit = [ block_id, cur_pos, kargs['dom_level'], str(html_tag) ]
                 local_ii[term][1][docId][2].append(hit)
                 local_ii[term][1][docId][0] += 1
             cur_pos += 1 + len(term)

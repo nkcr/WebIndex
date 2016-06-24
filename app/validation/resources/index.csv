@@ -1,0 +1,502 @@
+10 base T, 4.30
+1000BaseCX, 6.49
+1000BaseLH, 6.49
+1000BaseLX, 6.48, 6.49
+1000BaseSX, 6.49
+1000BaseT, 6.49
+100BaseFX, 6.48
+100BaseT4, 6.49
+100BaseTX, 6.49
+10BaseF, 6.48
+10BaseT, 6.48
+10GBaseLR, 6.49
+Accès à des bases de données distantes, 4.2
+Accès à des programmes distants, 4.2
+accès au canal, 6.3, 6.6, 6.17
+accès par compétition, 6.9
+acquittements, 2.59
+address mask, 7.47
+Address Resolution Protocol, 7.49
+ADPCM (Adaptive Differential Pulse Code Modulation), 2.21
+Adressage, 4.22
+Adressage, 7.5, 7.46
+Adresse MAC, 6.52
+Adresses IPv4, 7.46, 7.50
+Adresses IPv6, 7.68
+Algorithme du bidon à jetons, 7.29
+Algorithme du bidon percé, 7.28
+algorithme du chemin le plus court, 7.15
+Aloha, 6.36
+AMI, 5.38
+anneau à jeton, 6.14
+anneau, 4.6
+Annuaire, 4.3
+Anycast, 7.67, 7.68
+Application Layer, 4.20
+Applications, 4.2
+arbre recouvrant, 7.14, 7.39
+ARP Reply, 7.49
+ARP Request, 7.49
+ARP, 7.48, 7.50
+ASP: Abstract Service Primitives, 4.21
+Association SCTP, 8.25
+association, 8.22
+Aufgaben der Bitübertragungsschicht, 5.1
+Authentication extension, 7.68
+Authentication header, 7.75
+Authentification, 7.74
+Authoritative, 9.5
+autoconfiguration, 7.70
+BAN - Body Area Network, 1.4
+BAN: Body Area Network, 4.5
+Base64, 9.23
+bidirectionnel, 6.17
+Biphasen, 5.39
+bit stuffing, 6.11
+BOOTP, 7.52
+Bridge, 4.27
+bridge, 7.36
+bus, 4.6
+CanBus, 4.6
+capacité C d’un canal, 3.2
+Caractères de délimitation, 6.12
+chaînage, 6.24
+CHAP - Challenge Authentication Protocol, 6.76
+character stuffing, 6.12
+Checksum, 8.14
+choke packets, 7.31
+chromatische Dispersion, 5.23
+chrominance, 2.22
+chunk, 8.25
+CIF (Common Intermediate Format), 2.23
+circuit virtuel, 3.19, 3.20
+Cloud Computing, 9.2
+CMI, 5.38
+Codage audio, 2.20
+Codage de source, 2.7, 2.8
+Codage de sources analogiques, 2.19
+Codage de voie, 2.8, 2.25
+Codage paramétrique, 2.22
+Codage vidéo, 2.22
+codage, 1.0
+codage, 2.1, 2.7
+Code
+Code de Huffman, 2.9, 2.11
+Code de Shannon-Fano, 2.9
+Code de Viterbi, 2.43
+Code en treillis, 2.43
+Code READ (RElative ADdressing), 2.9, 2.18
+Code, 8.13
+Codes arithmétiques, 2.9, 2.18
+Codes convolutifs, 2.27
+Codes cycliques, 2.27
+Codes de bloc, 2.25
+Codes de blocs et de plages, 2.9, 2.15
+Codes de Hamming, 2.34
+Codes de Lempel-Ziv, 2.9, 2.13
+Codes linéaires, 2.26
+Codes polynomiaux, 2.38
+Codes séparables, 2.26
+Codes utilisant des blocs de taille fixe, 2.15
+Codes utilisant des blocs de taille variable, 2.16
+communication, 4.2
+Commutateur, 4.28
+Commutation de circuits, 3.13, 3.14
+Commutation de paquets, 3.14, 3.18
+Commutation spatiale, 3.16
+Commutation temporelle, 3.17
+commutation, 1.9
+compétition, 6.8
+Comptage d’octets, 6.10
+Concentrateur, 4.26
+concentrateurs, 4.5
+concentrateurs, 7.35
+Contrôle d'erreurs, 8.8
+Contrôle d’admission, 7.30
+Contrôle de congestion, 7.10, 7.27
+Correction d'erreurs, 2.29
+Couche 1, 4.16
+Couche 2, 4.17
+Couche 3, 4.18
+Couche 4, 4.19
+Couche Application, 4.20
+Couche Liaison de données, 4.17
+Couche liaison de données, 6.1
+Couche Physique, 4.16
+Couche Réseau, 4.18
+Couche Transport, 4.19
+Couche Transport, 8.1
+Courtoisie d’accès, 6.33
+CSMA, 6.39
+CSMA/CA: Carrier Sensing for Multiple Access with Collision Avoidance, 6.69
+CSMA/CD, 6.36, 6.42
+DAD, 7.78
+Data Link Layer, 4.17
+Data Unit, 4.23
+datagramme, 3.19
+DCT: Discrete Cosine Transform, 2.23
+Débit d'information, 2.6
+Débit de décision, 2.6
+Débit, 7.56
+débits, 2.2
+Délai, 7.56
+Délimitation de trame, 6.9
+Destination options header, 7.75
+Destination unreachable, 7.64
+Détection d'erreurs, 2.29
+détection d’adresse dupliquée, 7.78
+Détection et correction d’erreurs, 6.14
+DHCP, 7.52, 7.67
+DHCPv4, 7.52
+DHCPv6, 7.70
+DiffServ, 7.56
+Distance de Hamming, 2.28
+DNS
+DNS - Domain Name System, 9.3
+DNS Reverse lookup, 9.7
+domaine de collision, 7.36
+domaines de collision
+DPCM (Differential Pulse Code Modulation), 2.20
+duplex, 6.17
+E.164, 7.5
+Echo request/Echo respond, 7.66
+effondrement, 7.10
+En-tête IPv4, 7.56
+En-tête IPv6, 7.74
+Encapsulation Security Header, 7.75
+Entrelacement, 2.45
+Entropie d'une source, 2.5
+Etablissement d'une association SCTP, 8.27
+Etablissement des connexions, 4.3
+Etablissement et libération de connexions, 8.5
+Ethernet, 4.29
+Etiquetage, 7.67
+étoile, 4.8
+Fanions, 6.10, 6.11
+FCS, 6.53
+Fenêtre, 2.55
+Fenêtre, 8.14
+Fermeture d'une association SCTP, 8.28
+Fernnebensprechen, 5.15
+Fiabilité, 7.56
+Fiberdämpfung, 5.21
+Firewall, 4.28
+Flooding, 7.20
+Flot de données, 7.67
+Flow label, 7.73
+Flow labeling, 7.67
+Format de la trame PPP, 6.78
+Fragment header, 7.75
+Fragmentation IPv4, 7.59, 7.76
+fragmentation non transparente, 7.26
+fragmentation transparente, 7.25
+Fragmentation, 7.8, 7.25, 7.59
+frame relay, 7.32
+FTP (File Transfer Protocol), 9.15
+FTP mode actif, 9.16
+FTP mode passif, 9.16
+Ftp, 8.13, 8.23
+GAN - Global Area Network, 1.4
+GAN: Global Area Network, 4.5
+Gateway, 4.28
+gateways, 7.36
+Gestion de liaison, 6.16
+Gestion des retransmissions, 2.61
+Gestion et maintenance, 4.3
+Gestion répartie par compétition, 6.36
+Global Routing Prefix, 7.69
+H.261, 2.23
+Hop limit, 7.74
+Hop-by-hop Options Header, 7.75
+Host identifier, 7.46
+Hostid, 7.46
+Hôte local, 7.47
+Hôte, 7.46
+HTML (Hyper Text Markup Language), 9.28
+HTTP - Hypertext Transfer Protocol, 9.28
+Http, 8.13, 8.23
+Hub Polling, 6.24
+Hub, 4.26
+hubs, 7.35
+Huffman/Runlength, 2.24
+IAB, 7.4
+IAB, 8.3
+IANA, 7.58, 7.68
+ICMPv4, 7.61
+ICMPv6, 7.77
+Identification, 7.57
+IEEE 802.11 / Wireless LAN, 6.65
+IEEE 802.2 / Logical Link Control, 6.74
+IEEE 802.3, 4.29
+IEEE 802.3/Ethernet, 4.6
+IEEE 802.3/Ethernet, 6.48
+IETF, 8.21
+IMAPv4, 9.27
+IMS (IP Multimedia Subsystem), 4.32
+Information, 1.10
+Information, 2.1
+Infrarotverbindungen, 5.27
+Interconnexion de réseaux, 7.34
+Internet Control Message Protocol, 7.61
+Internet, 7.48
+IPv4, 7.45
+IPv6, 7.67
+ISP Prefix, 7.69
+LAN - Local Area Network, 1.4
+LAN: Local Area Network, 4.5
+LCP - Link Control Protocol, 6.76
+leaky bucket, 7.28
+Liaison point à point, 6.17
+Lissage de trafic, 7.28
+LLC (Logical Link Control), 6.74
+LLC 1, 6.74
+LLC 2, 6.74
+LLC 3, 6.74
+Local hostid, 7.47
+MAC, 6.52
+MAC, 7.48
+Maillage complet ou partiel, 4.9
+MAN - Metropolitan Area Network, 1.4
+MAN: Metropolitan Area Network, 4.5
+Manchestercode, 5.39
+masque d’adresse, 7.47
+mécanismes de reprise, 6.8
+Medium Access Control, 6.52
+Metallische Leitungen, 5.7
+MH: Modified Huffman, 2.16
+MIB (Management Information Base), 9.39
+Modulation, 5.40
+Motion Compensation, 2.24
+MTA, 9.Message Transfer Agent, 9.21
+Multicast, 7.67, 7.68
+Multicasting, 7.46
+multihoming, 8.22
+multipath routing, 7.13
+Multiplexage de longueurs d’ondes optiques, 3.8
+multiplexage déterministe, 3.3
+Multiplexage fréquentiel, 3.7
+multiplexage fréquentiel, 6.7
+Multiplexage par code, 3.11
+Multiplexage spatial, 3.10
+multiplexage statique, 3.3
+Multiplexage statique, 6.6
+multiplexage statistique, 6.7
+Multiplexage temporel asynchrone, 3.5
+Multiplexage temporel asynchrone, 6.8
+Multiplexage temporel synchrone, 3.3
+multiplexage temporel synchrone, 6.6
+Multiplexage temporel, 3.3
+multiplexage, 1.8
+Multiplexage, 3.1
+Multiplexeurs, 4.5
+NCP - Network Control Protocol, 6.76
+Neighbor Sollicitation, 7.78
+Netmask Request/Response, 7.64
+Network Information Center, 7.48
+Network Layer, 4.18
+NIC, 7.48
+niveau racine, 9.3
+Nœuds de commutation, 4.4
+NPDU, 7.3
+NRZ, 5.37
+Offset, 8.13
+optisch-elektrische Wandler, 5.24
+OSPF, 7.4
+PAN - Personal Area Network, 1.4
+PAP - Password Authentication Protocol, 6.76
+Paquet, 7.56, 7.73
+Paquets d'engorgement, 7.31
+Pare-feu, 4.28
+Parité croisée, 2.33
+Parité simple, 2.32
+Passerelle, 4.28
+PCM: Pulse Code Modulation, 2.20
+Persistence Timer, 8.20
+Physical Layer, 4.16
+PIM-DM, 7.21
+PING, 7.62
+plan de contrôle, 7.44
+plan de donnée, 7.44
+Poids de Hamming, 2.28
+point terminal, 8.26
+Pointeur, 8.14
+Polling, 6.24
+PON: Passive Optical Network, 3.10
+PON: Passive Optical Network, 4.10
+Pont transparent, 7.37
+Pont, 4.27
+Pont, 7.36
+ponts, 7.36
+POP, 9.26
+PPP - Point-to-Point Protocol, 6.75
+PPP Multilink, 6.80
+Preamble, 6.52
+préfixe de routage globale, 7.69
+primitives de service, 4.21
+Profibus, 4.6
+Protcole Telnet, 9.11
+Protection par répétition, 2.30
+Protocole "envoyer et attendre", 2.47
+Protocole DNS, 9.8
+Protocole FTP, 9.17
+Protocole HTTP, 9.29
+Protocole SMTP, 9.24
+Protocole SNMP, 9.36
+Protocole utopique, 2.46
+Protocoles à fenêtre d'anticipation, 2.53
+protocoles applicatifs, 9.2
+Protocoles ARPA-Internet, 4.30
+Protocoles du RNIS, 4.31, 4.32
+Protocoles OSI, 4.33
+protocoles, 1.6
+Protocoles, 4.12
+QOS Quality Of Service, 8.11
+Qualität der Dienste der Bitübertragungsschicht, 5.5
+Qualité de service, 8.11
+Quantité d'information, 2.3
+Quantité de décision, 2.5
+RARP, 7.49
+réassemblage, 7.8, 7.25, 7.46
+Redirect, 7.65
+Redondance, 2.6
+Registry, 7.69
+Régulation de charge, 4.3
+Régulation de flux, 4.3
+Régulation de flux, 6.15
+Régulation de flux, 7.27
+Régulation de flux, 8.8
+relayage de trames, 7.32
+Rendement d'un code, 2.30
+Rendement, 6.29, 6.35
+Repeater, 4.26
+repeater, 7.35
+Répéteur, 4.26
+répéteurs, 7.35
+Requête itérative, 9.6
+Requête récursive, 9.6
+réseau, 1.4
+Reverse Address Resolution Protocol, 7.49
+RGB (Red Green Blue), 2.23
+RIP, 7.4
+RIPE, 7.48, 7.70
+RLE: Run Length Encoding, 2.16
+ROADM: Reconfigurable Optical Add-and-Drop Multiplexer, 3.12
+Routage adaptatif centralisé, 7.17
+Routage adaptatif local, 7.18
+Routage adaptatif réparti, 7.21
+routage centralisé, 7.16
+Routage déterministe (statique), 7.12
+routage dynamique, 4.3
+Routage hiérarchique, 7.23
+routage local, 7.16
+Routage multichemin, 7.13
+Routage par inondation, 7.20
+routage réparti, 7.16
+routage statique, 4.3
+Routage, 1.9
+Routage, 4.3
+Routage, 7.6
+Router Advertisment, 7.78
+Router, 4.28
+router, 7.36
+Routeur, 4.28
+Routeur, 7.41
+routeurs, 7.36
+Routing header, 7.75
+RZ, 5.38
+SAN - Storage Area Network, 1.4
+SAN: Storage Area Network, 4.5
+Satellitenverbindungen, 5.33
+SB-ADPCM: Subband Adaptive Differential Pulse Code Modulation, 2.21
+SCTP (Stream Control Transmission Protocol), 8.3, 8.21
+segmentation et réassemblage, 4.24
+Segmentation et réassemblage, 8.7
+Segmentation, 7.46
+séquencement, 8.4, 8.8
+service avec connexion., 6.17
+service orienté connexion, 8.3
+service sans connexion, 6.16
+service sans connexion, 8.3
+Services, 1.3
+Services, 6.16
+Shannon, 2.9, 2.25
+shortest path, 7.15
+signalisation, 8.3, 8.21
+simplex, 6.17
+Site Prefix, 7.69
+SMTP - Simple Mail Transfer Protocol, 9.19
+Smtp, 8.13, 8.23
+SNMP - Simple Network Management Protocol, 9.34
+source continue, 2.3
+source discrète, 2.3
+Source quench, 7.64
+source routing, 7.40
+Sources d'information, 2.3
+Sous-réseau, 7.47
+spanning tree, 7.14, 7.39
+stream, 8.21, 8.22
+Strowger, 3.12
+Subnet, 7.47
+Switch, 4.28
+switch, 7.36
+Systèmes industriels, 4.2
+tables dynamiques de translation d'adresses, 3.20
+Taxation, 4.4
+TCP (Transport Control Protocol), 8.3
+TCP, 8.22
+Telnet, 8.13, 8.23
+Telnet, 9.10
+Temporisateur "Keep-Alive", 8.20
+temps de cheminement, 6.25
+Temps de scrutation, 6.25
+Temps de traversée, 6.29, 6.33
+theoretische Grenzen der Datenübertragung, 5.3
+thrashing, 7.10
+Time exceeded, 7.65
+token bucket, 7.29
+Topologie arborescente, 4.10
+Topologie des réseaux hertziens, 4.10
+Topologie en anneau, 4.6
+Topologie en bus, 4.6
+Topologie en étoile, 4.8
+Topologies maillées, 4.9
+Topologies, 4.4
+tour de table, 6.24
+traceroute, 7.62
+Traffic shaping, 7.28
+trame d'information, 3.5
+trame IEEE 802.11, 6.72, 6.74
+trames IEEE 802.3/Ethernet, 6.51
+Transfert de données, 8.6, 8.10
+Transmission Control Protocol (TCP), 8.13
+transmission, 1.8
+transmission, 4.5
+Transparence par insertion de bits, 6.11
+Transparence par insertion de caractère, 6.13
+transparence sémantique, 6.9
+transparence temporelle, 6.9
+transparence, 6.9
+transparent bridge, 7.37
+Transport Layer, 4.19
+Transport/Network Address, 8.4
+Tunelling, 7.59
+UA, 9.User Agent, 9.21
+Übertragungsmodus, 5.36
+Übertragungsverfahren, 5.36
+UDP (User Datagram Protocol), 8.3
+Unicast, 7.68
+unidirectionnel, 6.17
+Unités de données, 4.23
+URL (Universal Resource Locator), 9.31
+URL, 9.Universal Resource Locator, 9.28
+User Datagram Protocol (UDP), 8.11
+Violation de codage, 6.13
+vocodeur, 2.22
+voie logique, 3.21
+VoIP, 8.21
+VoIP: Voice over IP, 2.22
+WAN - Wide Area Network, 1.4
+WAN: Wide Area Network, 4.5
+Webmail, 9.27
+WWW (World Wide Web), 9.28
+YcrCb, 2.23

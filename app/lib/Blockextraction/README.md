@@ -17,7 +17,7 @@ It will output an inverted index in the form:
     rank, {
       docId: [
         nbHit, rank,[
-          [blockId, position, domLevel],
+          [blockId, position, domLevel,html_tag],
           ...
         ]
       ],
