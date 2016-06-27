@@ -123,20 +123,45 @@ def compute_recall(indexwordspath, bestwordspath):
     '''
     index = importjson(indexwordspath)
     best_words = importjson(bestwordspath)
-    true_positive = len( set(index).intersection(best_words) )
-    false_negative = len ( set(index).difference(best_words) )
-    recall = true_positive / ( true_positive + false_negative )
+    recall = compute_recall(index, best_words)
     print(recall*100, '%')
     return recall
 
-def compute_full_recall(rank_func, sourcefolder, savefolder, variant, quantity):
+# python3 -c "import main; main.compute_full_recall(main.rank_tfidf,'ii-base','ii-tfidf2',2,1000)"
+def compute_full_recall(rank_func, sourcefolder, savefolder, variant, quantity=10000):
     '''This function is a shortcut to directly rank an inverted index, get the
     best words and compute the recall.
     The 'rank_func' takes as parameter 'sourcefolder, savefolder, variant'
+    Will output the file containing the best words and the file to plot the recall.
     '''
     rank_func(sourcefolder, savefolder, variant)
     best_words_path = savefolder + '/best' + str(quantity) + '.txt'
     get_best_words(quantity, savefolder+'/ii.txt', best_words_path)
-    compute_recall('resources/index_words.txt', best_words_path)
+    # compute_recall('resources/index_words.txt', best_words_path)
+    compute_graph_recall('resources/index_words.txt', best_words_path, savefolder + 'graph_recall_' + str(quantity))
 
-# python3 -c "import main; main.compute_full_recall(main.rank_tfidf,'ii-base','ii-tfidf2',2,1000)"
+def compute_recall(indexwords, bestwords):
+    '''Given the index of words en the words found, compute and return the recall.
+    '''
+    true_positive = len( set(indexwords).intersection(bestwords) )
+    false_negative = len ( set(indexwords).difference(bestwords) )
+    recall = true_positive / ( true_positive + false_negative )
+    return recall
+
+# python3 -c "import main; main.compute_graph_recall('resources/index_words.txt', 'ii-tfidf2/best10000.txt', 'ii-tfidf2/graph_recall_10000.csv')"
+def compute_graph_recall(indexwordspath, bestwordspath, savepath):
+    '''Given the path of the index words and the path of the words found,
+    will compute the recall from 0 the the number of words found and save it as
+    a csv file in the savepath.
+    '''
+    index = importjson(indexwordspath)
+    best_words = importjson(bestwordspath)
+    total = 0
+    with open(savepath, 'w') as csvfile:
+        spamwriter = csv.writer(csvfile)
+        for i in range(0, len(best_words)):
+            recall = compute_recall(index,best_words[:i])
+            row = [i,recall]
+            total += recall
+            spamwriter.writerow(row)
+    print("Total recall: ", total)
