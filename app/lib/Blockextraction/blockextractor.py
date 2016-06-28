@@ -8,6 +8,8 @@ Date: june 2016
 from collections import defaultdict
 import re
 import uuid
+import codecs
+import json
 # from nltk.stem.snowball import FrenchStemmer
 
 class BlockExtractor:
@@ -15,6 +17,8 @@ class BlockExtractor:
     def __init__(self):
         self.ii = defaultdict(lambda: [ 0, defaultdict(lambda: [0,0,[]]) ])
         self.normssq = defaultdict(int)
+        self.fr_sw = self.importjson('resources/fr_stop_words.txt')
+        self.en_sw = self.importjson('resources/en_stop_words.txt')
         # self.stemmer = FrenchStemmer()
 
     def update_ii(self, hash, docId):
@@ -71,7 +75,7 @@ class BlockExtractor:
         local_ii = defaultdict(lambda: [ 0, defaultdict(lambda:
              [0,0,[] ]) ])
         for term in terms:
-            if(len(term) > 1):
+            if(len(term) > 1 and term not in self.fr_sw and term not in self.en_sw):
                 # term = self.stemmer.stem(term)
                 hit = [ block_id, cur_pos, kargs['dom_level'], str(html_tag) ]
                 local_ii[term][1][docId][2].append(hit)
@@ -80,3 +84,10 @@ class BlockExtractor:
         self.update_ii(local_ii, docId)
         self.update_norms(local_ii, docId)
         return (docId, local_ii)
+
+    def importjson(self, path):
+        '''Given the path of a json file, it will convert it into a dictionary.
+        '''
+        with codecs.open(path, 'r', 'utf8') as f:
+            hash = json.loads(f.read())
+        return hash

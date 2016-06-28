@@ -5,7 +5,7 @@ Licence: MIT
 Date: june 2016
 '''
 
-from math import log2
+from math import log2, log
 import operator
 import codecs, json
 import os
@@ -33,17 +33,37 @@ def settfidf2(repo, ii):
             n = len(repo)
             f_t = len(value[1])
             tf = f_td
-            idf = log2(n / f_t)
+            idf = log(n / f_t)
             boost = 0
+            idl = 0
             for hit in value2[2]:
-                idl = 1.0 / hit[2]
-                if(hit[3] in ['h1', 'h2', 'b', 'figcation', 'strong', 'em', 'h3', 'h4', 'cation']):
-                    idl += 1
-                if(idl > boost):
-                    boost = idl
-            # if(repo[docid][2][])
-            # value2[1] = (tf*idf*idf*boost) / norms
-            value2[1] = tf*idf*boost*boost*boost*boost / norms
+                local_idl = 1.0 / hit[2]
+                if(hit[3] in ['h1', 'h2', 'b', 'figcation', 'strong', 'em', 'h3', 'h4', 'caption']):
+                    boost += 1
+                if(local_idl > idl):
+                    idl = local_idl
+            value2[1] = (tf*tf*idf*idl / norms) + boost
+
+def settfidf3(repo, ii):
+    '''Update each (word,doc) rank with tf-idf algorithm.
+    '''
+    for wordid, value in ii.items():
+        for docid, value2 in value[1].items():
+            f_td = value2[0]
+            norms = repo[docid][1]
+            n = len(repo)
+            f_t = len(value[1])
+            tf = f_td
+            idf = log(n / f_t)
+            boost = 0
+            idl = 0
+            for hit in value2[2]:
+                local_idl = 1.0 / hit[2]
+                if(hit[3] in ['h1', 'h2', 'b', 'figcation', 'strong', 'em', 'h3', 'h4', 'caption']):
+                    boost += 1
+                if(local_idl > idl):
+                    idl = local_idl
+            value2[1] = (tf*tf*idf / norms) + boost
 
 def setwrank(ii):
     '''Set each word rank with the highest (word,doc) rank.

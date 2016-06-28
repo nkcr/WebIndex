@@ -23,7 +23,7 @@ class Webindex:
     def update(self, quantity=10):
         '''Compute the tf-idf and update word ranks. Return the n best words.
         '''
-        iengine.settfidf(self.repo,self.getii())
+        iengine.settfidf2(self.repo,self.getii())
         iengine.setwrank(self.engine.ii)
         best = iengine.mostranked(quantity,self.getii())
         return best
@@ -70,10 +70,10 @@ class Webindex:
         return self.engine.ii
 
     def saveii(self):
-        iengine.savejson('exports/ii.txt', self.getii())
+        iengine.savejson('ii.txt', self.getii())
 
     def saverepo(self):
-        iengine.savejson('exports/repo.txt', self.repo)
+        iengine.savejson('repo.txt', self.repo)
 
     def savestats(self, path, quantity=100):
         iengine.settfidf2(self.repo,self.getii())
@@ -88,4 +88,4 @@ webindex = Webindex()
 files = glob.glob('documents/TIF_FR/*.html')
 for file in files:
     webindex.handlefile(file)
-webindex.savestats('exports/test.csv')
+webindex.savestats('test.csv')

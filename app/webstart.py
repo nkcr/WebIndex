@@ -56,7 +56,7 @@ def index():
                 webindex.handlefile(filepath)
             else:
                 flash('Found unallowed file extension: ' + file.filename)
-        best = webindex.mostranked(100)
+        best = webindex.mostranked(1000)
         webindex.saveii()
         webindex.saverepo()
     else:

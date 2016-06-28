@@ -45,6 +45,8 @@ def rank_tfidf(folderpath, savefolder=None, variant=1):
     ii = importjson(folderpath + '/ii.txt')
     if(variant is 2):
         iengine.settfidf2(repo,ii)
+    elif(variant is 3):
+        iengine.settfidf3(repo,ii)
     else:
         iengine.settfidf(repo,ii)
     iengine.setwrank(ii)
@@ -117,15 +119,15 @@ def get_best_words(quantity, iipath, savepath=None):
         iengine.savejson(savepath, keys)
     return keys
 
-def compute_recall(indexwordspath, bestwordspath):
-    '''Compute the recall given the path of the index and the path of the best
-    words.
-    '''
-    index = importjson(indexwordspath)
-    best_words = importjson(bestwordspath)
-    recall = compute_recall(index, best_words)
-    print(recall*100, '%')
-    return recall
+# def compute_recall(indexwordspath, bestwordspath):
+#     '''Compute the recall given the path of the index and the path of the best
+#     words.
+#     '''
+#     index = importjson(indexwordspath)
+#     best_words = importjson(bestwordspath)
+#     recall = compute_recall(index, best_words)
+#     print(recall*100, '%')
+#     return recall
 
 # python3 -c "import main; main.compute_full_recall(main.rank_tfidf,'ii-base','ii-tfidf2',2,1000)"
 def compute_full_recall(rank_func, sourcefolder, savefolder, variant, quantity=10000):
@@ -138,7 +140,7 @@ def compute_full_recall(rank_func, sourcefolder, savefolder, variant, quantity=1
     best_words_path = savefolder + '/best' + str(quantity) + '.txt'
     get_best_words(quantity, savefolder+'/ii.txt', best_words_path)
     # compute_recall('resources/index_words.txt', best_words_path)
-    compute_graph_recall('resources/index_words.txt', best_words_path, savefolder + 'graph_recall_' + str(quantity))
+    compute_graph_recall('resources/index_words.txt', best_words_path, savefolder + '/graph_recall_' + str(quantity) + '.csv')
 
 def compute_recall(indexwords, bestwords):
     '''Given the index of words en the words found, compute and return the recall.
