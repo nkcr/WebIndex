@@ -16,7 +16,7 @@ def cut_filter(s):
 app.jinja_env.filters['cut'] = cut_filter
 
 def percent_filter(s):
-    return round(s,2)*10
+    return round(s,2)
 app.jinja_env.filters['percent'] = percent_filter
 
 def allowed_file(filename):

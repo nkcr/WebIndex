@@ -6,6 +6,7 @@ Date: june 2016
 '''
 
 from collections import defaultdict
+import os
 import re
 import uuid
 import codecs
@@ -17,8 +18,9 @@ class BlockExtractor:
     def __init__(self):
         self.ii = defaultdict(lambda: [ 0, defaultdict(lambda: [0,0,[]]) ])
         self.normssq = defaultdict(int)
-        self.fr_sw = self.importjson('resources/fr_stop_words.txt')
-        self.en_sw = self.importjson('resources/en_stop_words.txt')
+        path = os.path.dirname(__file__)
+        self.fr_sw = self.importjson(path + '/fr_stop_words.txt')
+        self.en_sw = self.importjson(path + '/en_stop_words.txt')
         # self.stemmer = FrenchStemmer()
 
     def update_ii(self, hash, docId):

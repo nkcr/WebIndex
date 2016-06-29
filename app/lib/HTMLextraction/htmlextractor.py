@@ -28,6 +28,7 @@ Module usage:
                         blocks.
                     rel_pos (int): Indicates the position relative to the block.
                     path (string): The path given to parse the file.
+                    docid (string): The document id
 
 Author: Noémien Kocher
 Licence: MIT
@@ -77,7 +78,7 @@ def __crawl(elements, i, res, acc, parent_tag,
         parent_tag (strin): The parent tag as a string
         dom_level (int): The current dom_level. Body is at level 1
         callback (func): A function that is called for each html tag and takes
-            as params: func(content, block_id, html_tag, dom_level, is_formatting)
+            as params: func(content, block_id, html_tag, **kargs)
         formattting (bool): Indicates if it parses formatting blocks.
 
     Returns:
@@ -150,6 +151,7 @@ def parseHTML(source, docid=None, callback=None):
                         blocks.
                     rel_pos (int): Indicates the position relative to the block.
                     path (string): The path given to parse the file.
+                    docid (string): The document id
 
     Returns:
         res (dict): Hash containing HTML blocks

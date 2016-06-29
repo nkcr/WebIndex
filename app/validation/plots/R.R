@@ -7,7 +7,7 @@ lines(`tfidf2sw`, col="brown")
 lines(random1, col="black")
 lines(random2, col="black")
 lines(random3, col="black")
-legend("center", 'left', 
+legend("bottomright", 
        legend=c(
          "tf*idf/norms - 5701","tf^2*idf*idl/norms+boost - 6171", 
          "tf^2*idf/norms+boost - 6149", 

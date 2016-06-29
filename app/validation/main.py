@@ -167,3 +167,20 @@ def compute_graph_recall(indexwordspath, bestwordspath, savepath):
             total += recall
             spamwriter.writerow(row)
     print("Total recall: ", total)
+
+# python3 -c "import main; main.compute_total_recall('ii-tfidf2/graph_recall_10000.csv', 7814)"
+def compute_total_recall(recallpath, quantity):
+    '''Given the path of a recall stats csv, will compute the comulated total
+    until the given quantity.
+    '''
+    index_words = []
+    i = 0
+    total = 0
+    with open(recallpath) as csvfile:
+        spamreader = csv.reader(csvfile)
+        for row in spamreader:
+            if(i < quantity):
+                total += float(row[1])
+            i += 1
+    print(total)
+    return total
