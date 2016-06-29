@@ -29,42 +29,8 @@ class Webindex:
         return best
 
     def mostranked(self, quantity=10):
-        '''Update and return the n best words with their context.
-        Return a list of form:
-        [
-            [
-                wordId, rank, [
-                    [wbefore, wafter, url],
-                    ...
-                ]
-            ],
-            ...
-        ]
-        '''
         keys = self.update(quantity)
-        res = []
-        offset = 40
-        for k in keys:
-            occurs = []
-            wordoccur = [k,self.getii()[k][0],occurs]
-            for docid, value in self.getii()[k][1].items():
-                hit = value[2][0]
-                blockid = hit[0]
-                position = hit[1]
-                starti = position-offset
-                if(starti<0):
-                    starti = 0
-                endi = position+len(k)+offset
-                content = self.repo[docid][2][blockid]
-                wbefore = content[starti:position]
-                if(starti > 0):
-                    wbefore = '...' + wbefore
-                wafter = content[position+len(k)+1:endi]
-                if(endi < len(content)):
-                    wafter = wafter + '...'
-                occurs.append([wbefore,wafter,self.repo[docid][0]])
-            res.append(wordoccur)
-        return res
+        return iengine.getcontext(self.repo, self.getii(), keys)
 
     def test(self):
         handlefile('lib/HTMLextraction/test_files/simple.html')

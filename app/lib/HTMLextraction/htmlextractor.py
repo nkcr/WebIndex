@@ -100,7 +100,6 @@ def __crawl(elements, i, res, acc, parent_tag,
             if(a is not ''):
                 callback(a,i+1,el.tag,
                 dom_level=dom_level, formatting=True, rel_pos=len(__clean_space(acc)))
-                print(acc)
             (b,i,ite) = __crawl(el,i,res,'',el.tag,dom_level,callback,formatting=True)
             c = __gettail(el)
             acc += ' ' + a + ' ' + b

@@ -79,7 +79,51 @@ def mostranked(quantity, ii):
     keys = sorted(ii, key=lambda k: ii[k][0], reverse=True)
     return keys[:quantity]
 
+def getcontext(repo, ii, keys, offset=40):
+    '''Given the repository, the inverted index and the list of wordId's
+    (keys), return an array containing the context of the words in the
+    following form:
+    [
+        [
+            wordId, rank, [
+                [wbefore, wafter, url],
+                ...
+            ]
+        ],
+        ...
+    ]
+    The offset is the number of words after and before that will be
+    shown. If there is more than one, it will only show the first
+    occurence of a word in a document.
+    '''
+    res = []
+    for k in keys:
+        occurs = []
+        wordoccur = [k, ii[k][0], occurs] # wordId, rank, [occurences]
+        # Iterate through each document containing a word
+        for docid, value in ii[k][1].items():
+            hit = value[2][0] # Get only the first hit
+            blockid = hit[0]
+            position = hit[1]
+            starti = position-offset # Start index
+            if(starti<0):
+                starti = 0
+            endi = position+len(k)+offset # End index
+            content = repo[docid][2][blockid] # Get the content block
+            wbefore = content[starti:position] # Get few words before
+            if(starti > 0):
+                wbefore = '...' + wbefore
+            wafter = content[position+len(k)+1:endi] # Get few words after
+            if(endi < len(content)):
+                wafter = wafter + '...'
+            occurs.append([wbefore,wafter,repo[docid][0]])
+        res.append(wordoccur) # Append the occurence to the result
+    return res
+
 def savejson(path, data):
+    '''Given a path and a data, will save the data as json to the path.
+    If a file already exists it will be first deleted.
+    '''
     try:
         os.remove(path)
     except OSError:

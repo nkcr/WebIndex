@@ -195,3 +195,48 @@ def test_mostranked():
     truth = ['wid1','wid3']
     res = iengine.mostranked(2, ii)
     assert res == truth
+
+def test_getcontext():
+    repo = {
+        'docid': [
+            'url1', 2.14, { # url, norms
+                1: 'This is content 1',
+                2: 'Content 2'
+            }
+        ],
+        'docid2' : [
+            'url2', 1.12, {
+                1: 'Hello content, how are you?',
+                2: 'This is sparta.'
+            }
+        ]
+    }
+    ii = {
+        'content': [
+            12.54, { # rank
+                'docid': [
+                    2, 12.54, [ # nbHits, rank
+                        [ 1, 8, 0, 'p' ], # blockId, position, domLevel, HTML tag
+                        [ 2, 0, 0, 'p' ]
+                    ]
+                ],
+                'docid2': [
+                    1, 2.32, [
+                        [ 1, 6, 0, 'h1' ]
+                    ]
+                ]
+            }
+        ]
+    }
+    keys = ['content']
+    offset = 5
+    truth = [
+        [
+            'content', 12.54, [ # wordId, rank
+                ['...s is ', '1', 'url1'], # wbefore, wafter, url
+                ['...ello ', ' how...', 'url2']
+            ]
+        ]
+    ]
+    res = iengine.getcontext(repo, ii, keys, offset)
+    assert res == truth

@@ -82,7 +82,7 @@ def test_callback():
         ['Title',    1,'title',2, False, 0,  source, 'docid'],
         ['Big title',2,'h1',   3, False, 0,  source, 'docid'],
         ['This is',  3, 'p',   3, False, 0,  source, 'docid'],
-        ['some',     3, 'b',   4, True,  8,  source, 'docid'],
+        ['some',     3, 'b',   4, True,  7,  source, 'docid'],
         ['content',  3, 'p',   3, True,  12, source, 'docid'],
         ['bye',      4, 'div', 2, False, 0,  source, 'docid']
     ]
