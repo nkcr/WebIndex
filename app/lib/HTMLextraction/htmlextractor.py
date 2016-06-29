@@ -66,6 +66,9 @@ def __store_content(res,content,i):
         res[i] = content
     return i
 
+def __clean_space(content):
+    return ' '.join(content.split())
+
 def __crawl(elements, i, res, acc, parent_tag,
             dom_level, callback, formatting=False):
     '''Recursively parse each element as block.
@@ -96,13 +99,15 @@ def __crawl(elements, i, res, acc, parent_tag,
             a = __gettext(el)
             if(a is not ''):
                 callback(a,i+1,el.tag,
-                dom_level=dom_level, formatting=True, rel_pos=len(acc))
+                dom_level=dom_level, formatting=True, rel_pos=len(__clean_space(acc)))
+                print(acc)
             (b,i,ite) = __crawl(el,i,res,'',el.tag,dom_level,callback,formatting=True)
             c = __gettail(el)
+            acc += ' ' + a + ' ' + b
             if(c is not ''):
                 callback(c,i+1,parent_tag,
-                dom_level=dom_level-1, formatting=True, rel_pos=len(acc)+len(a)+len(b))
-            acc += ' ' + a + ' ' + b + ' ' + c
+                dom_level=dom_level-1, formatting=True, rel_pos=len(__clean_space(acc)))
+                acc += ' ' + c
 
         # Got a block tag
         else:

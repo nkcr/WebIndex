@@ -30,6 +30,16 @@ class Webindex:
 
     def mostranked(self, quantity=10):
         '''Update and return the n best words with their context.
+        Return a list of form:
+        [
+            [
+                wordId, rank, [
+                    [wbefore, wafter, url],
+                    ...
+                ]
+            ],
+            ...
+        ]
         '''
         keys = self.update(quantity)
         res = []
@@ -49,7 +59,7 @@ class Webindex:
                 wbefore = content[starti:position]
                 if(starti > 0):
                     wbefore = '...' + wbefore
-                wafter = content[position+len(k):endi]
+                wafter = content[position+len(k)+1:endi]
                 if(endi < len(content)):
                     wafter = wafter + '...'
                 occurs.append([wbefore,wafter,self.repo[docid][0]])
