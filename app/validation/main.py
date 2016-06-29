@@ -144,6 +144,7 @@ def compute_full_recall(rank_func, sourcefolder, savefolder, variant, quantity=1
 
 def compute_recall(indexwords, bestwords):
     '''Given the index of words en the words found, compute and return the recall.
+    Recall is TP / (TP+FP)
     '''
     true_positive = len( set(indexwords).intersection(bestwords) )
     false_negative = len ( set(indexwords).difference(bestwords) )
@@ -169,7 +170,7 @@ def compute_graph_recall(indexwordspath, bestwordspath, savepath):
     print("Total recall: ", total)
 
 # python3 -c "import main; main.compute_total_recall('ii-tfidf2/graph_recall_10000.csv', 7814)"
-def compute_total_recall(recallpath, quantity):
+def compute_cumulated_recall(recallpath, quantity):
     '''Given the path of a recall stats csv, will compute the comulated total
     until the given quantity.
     '''
@@ -184,3 +185,32 @@ def compute_total_recall(recallpath, quantity):
             i += 1
     print(total)
     return total
+
+def compute_precision(indexwords, bestwords):
+    '''Given the index of words en the words found, compute and return the precision.
+    Precision is TP / (TP+FP)
+    '''
+    true_positive = len( set(indexwords).intersection(bestwords) )
+    false_positive = len ( set(bestwords).difference(indexwords) )
+    if(true_positive+false_positive == 0):
+        return 1
+    precision = true_positive / ( true_positive + false_positive )
+    return precision
+
+# python3 -c "import main; main.compute_graph_precision('resources/index_words.txt', 'ii-tfidf2/best10000.txt', 'ii-tfidf2/graph_precision_10000.csv')"
+def compute_graph_precision(indexwordspath, bestwordspath, savepath):
+    '''Given the path of the index words and the path of the words found,
+    will compute the precision from 0 the the number of words found and
+    save it as a csv file in the savepath.
+    '''
+    index = importjson(indexwordspath)
+    best_words = importjson(bestwordspath)
+    total = 0
+    with open(savepath, 'w') as csvfile:
+        spamwriter = csv.writer(csvfile)
+        for i in range(0, len(best_words)):
+            precision = compute_precision(index,best_words[:i])
+            row = [i,precision]
+            total += precision
+            spamwriter.writerow(row)
+    print("Total precision: ", total)

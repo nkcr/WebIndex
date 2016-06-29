@@ -238,5 +238,14 @@ def test_getcontext():
             ]
         ]
     ]
+    # The array order is not deterministic, so we check both possibilities
+    truth2 = [
+        [
+            'content', 12.54, [ # wordId, rank
+                ['...ello ', ' how...', 'url2'], # wbefore, wafter, url
+                ['...s is ', '1', 'url1']
+            ]
+        ]
+    ]
     res = iengine.getcontext(repo, ii, keys, offset)
-    assert res == truth
+    assert res == truth or res == truth2

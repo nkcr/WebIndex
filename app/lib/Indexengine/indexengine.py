@@ -101,8 +101,8 @@ def getcontext(repo, ii, keys, offset=40):
         occurs = []
         wordoccur = [k, ii[k][0], occurs] # wordId, rank, [occurences]
         # Iterate through each document containing a word
-        for docid, value in ii[k][1].items():
-            hit = value[2][0] # Get only the first hit
+        for docid in ii[k][1]:
+            hit = ii[k][1][docid][2][0] # Get only the first hit
             blockid = hit[0]
             position = hit[1]
             starti = position-offset # Start index
