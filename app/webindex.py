@@ -46,10 +46,10 @@ class Webindex:
         return self.engine.ii
 
     def saveii(self):
-        iengine.savejson('ii.txt', self.getii())
+        iengine.savejson('data/ii.txt', self.getii())
 
     def saverepo(self):
-        iengine.savejson('repo.txt', self.repo)
+        iengine.savejson('data/repo.txt', self.repo)
 
     def savestats(self, path, quantity=100):
         iengine.settfidf2(self.repo,self.getii())
@@ -60,8 +60,8 @@ class Webindex:
             for k in keys:
                 spamwriter.writerow([k,round(self.getii()[k][0],2)])
 
-webindex = Webindex()
-files = glob.glob('documents/TIF_FR/*.html')
-for file in files:
-    webindex.handlefile(file)
-webindex.savestats('test.csv')
+# webindex = Webindex()
+# files = glob.glob('documents/TIF_FR/*.html')
+# for file in files:
+#     webindex.handlefile(file)
+# webindex.savestats('test.csv')
