@@ -63,7 +63,7 @@ def __store_content(res,content,i):
     content = ' '.join(content.split())
     if(content is not ''):
         i += 1
-        res[i] = content
+        res[str(i)] = content
     return i
 
 def __clean_space(content):
@@ -98,13 +98,13 @@ def __crawl(elements, i, res, acc, parent_tag,
         if(formatting or el.tag in __formatting_tags):
             a = __gettext(el)
             if(a is not ''):
-                callback(a,i+1,el.tag,
+                callback(a,str(i+1),el.tag,
                 dom_level=dom_level, formatting=True, rel_pos=len(__clean_space(acc)))
             (b,i,ite) = __crawl(el,i,res,'',el.tag,dom_level,callback,formatting=True)
             c = __gettail(el)
             acc += ' ' + a + ' ' + b
             if(c is not ''):
-                callback(c,i+1,parent_tag,
+                callback(c,str(i+1),parent_tag,
                 dom_level=dom_level-1, formatting=True, rel_pos=len(__clean_space(acc)))
                 acc += ' ' + c
 
@@ -118,7 +118,7 @@ def __crawl(elements, i, res, acc, parent_tag,
             # Push the content and crawl children
             a = __gettext(el)
             if(a is not ''):
-                callback(a,i+1,el.tag,
+                callback(a,str(i+1),el.tag,
                     dom_level=dom_level,formatting=False, rel_pos=0)
             acc += ' ' + a
             (b,i,ite) = __crawl(el,i,res,acc,el.tag,dom_level,callback)
@@ -133,7 +133,7 @@ def __crawl(elements, i, res, acc, parent_tag,
                 i = __store_content(res,b,i)
             c = __gettail(el)
             if(c is not ''):
-                callback(c,i+1,parent_tag,
+                callback(c,str(i+1),parent_tag,
                     dom_level=dom_level-1, formatting=False, rel_pos=0)
             acc = c
 

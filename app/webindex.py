@@ -47,7 +47,7 @@ class Webindex:
 
     def saveii(self):
         iengine.savejson('data/ii.txt', self.getii())
-
+        
     def saverepo(self):
         iengine.savejson('data/repo.txt', self.repo)
 
@@ -59,6 +59,15 @@ class Webindex:
             spamwriter = csv.writer(csvfile)
             for k in keys:
                 spamwriter.writerow([k,round(self.getii()[k][0],2)])
+
+    def read_mostranked(self, quantity=100):
+        try:
+            ii = iengine.importjson('data/ii.txt')
+            repo = iengine.importjson('data/repo.txt')
+        except OSError:
+            return {}
+        keys = iengine.mostranked(quantity, ii)
+        return iengine.getcontext(repo, ii, keys)
 
 # webindex = Webindex()
 # files = glob.glob('documents/TIF_FR/*.html')

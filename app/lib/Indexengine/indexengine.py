@@ -9,6 +9,7 @@ from math import log2, log
 import operator
 import codecs, json
 import os
+import yaml
 
 def settfidf(repo, ii):
     '''Update each (word,doc) rank with tf-idf algorithm.
@@ -130,3 +131,10 @@ def savejson(path, data):
         pass
     with codecs.open(path, 'w', 'utf8') as f:
         f.write(json.dumps(data, f, ensure_ascii=False, indent=4, sort_keys=True))
+
+def importjson(path):
+    '''Given the path of a json file, it will convert it into a dictionary.
+    '''
+    with codecs.open(path, 'r', 'utf8') as f:
+        hash = json.loads(f.read())
+    return hash

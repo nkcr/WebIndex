@@ -60,5 +60,5 @@ def index():
         webindex.saveii()
         webindex.saverepo()
     else:
-        best = {}
+        best = webindex.read_mostranked(1000)
     return render_template('index.html', best=best)
