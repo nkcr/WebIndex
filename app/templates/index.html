@@ -3,22 +3,67 @@
   <head>
     <title>WebIndex</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='design.css') }}">
+    <link href='https://fonts.googleapis.com/css?family=Oxygen:400,700,300' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    {{ get_flashed_messages() }}
+
+    <!-- Handle flashe messages from Flask -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
     <h1>WebIndex</h1>
+    <p class="info">
+      Will automatically try to load an inverted index and repository at
+      'data/ii.txt' and 'data/repo.txt'.<br>
+      When files are loaded, the repository and inverted index are saved to
+      'data/repo.txt' and 'data/ii.txt' respectively.
+    </p>
 
-    <form action="" method=post enctype=multipart/form-data>
-      <p><input type=file name=file webkitdirectory directory multiple>
-         <input type=submit value=Upload>
-    </form>
+    <div class="row">
+      <!-- Folder upload form -->
+      <div class="block">
+        <h3>Upload folder</h3>
+        <form action="" method=post enctype=multipart/form-data>
+          <p class="info">This feature works only with Chrome browser. Select a folder
+          and it will parse each *.html file it finds.</p>
+          <input type=file name=file webkitdirectory directory multiple>
+          <input type=submit value=Upload>
+        </form>
+      </div>
+      <!-- Number of key-words form -->
+      <div class="block">
+        <h3>Change number of words</h3>
+        <form action="" method=get>
+          <p class="info">Change the number of keywords shown. By default,
+            100 are displayed.</p>
+          <input type=number name=quantity>
+          <input type=submit value=Change>
+        </form>
+      </div>
+    </div>
 
+    <!-- Keywords table -->
     <table>
+      <thead>
+        <tr>
+          <th>Keyword (number of documents)</th>
+          <th>Histogram</th>
+          <th>Index score</th>
+        </tr>
+      </thead>
+      <!-- For each keyword -->
       {% for word in best %}
         <tr onclick="$(this).next().toggle()" class="keyword">
           <td class="kw"><b>{{ word[0] }}</b> ({{ word[2] | length }})</td>
           <td class="stat">
-            <div style="width:{{ word[1] | percent }}px">
+            <div style="width:{{ word[1] | cut }}px">
             </div>
           </td>
           <td>{{ word[1] | cut }}</td>
@@ -26,10 +71,26 @@
         <tr class="occurs-wrapper">
           <td class="occurs">
             <table>
-              {% for occ in word[2] %}
-                <tr>
-                  <td>{{ occ[0] }} <b>{{ word[0] }}</b> {{ occ[1] }}</td>
-                  <td><a href="{{ url_for('static', filename=occ[2]) }}">{{ occ[2] }}</a></td>
+              <!-- For each occurence of a keyword in a document -->
+              {% for dococcur in word[2] %}
+                <tr class="occur">
+                  <td>{{ dococcur[2][0][0] }} <b>{{ word[0] }}</b> {{ dococcur[2][0][1] }}</td>
+                  <td><a href="{{ url_for('static', filename=dococcur[1]) }}">{{ dococcur[1] }}</a></td>
+                  <td>{{ dococcur[0] | cut }}</td>
+                </tr>
+                <tr class="toggle-occurs">
+                  <td class="display-occurs">+ ({{ dococcur[2] | length - 1 }})</td>
+                </tr>
+                <tr class="all-occurs">
+                  <td>
+                    <table>
+                      {% for occur in dococcur[2][1:] %}
+                      <tr>
+                        <td>{{ occur[0] }} <b>{{ word[0] }}</b> {{ occur[1] }}</td>
+                      </tr>
+                      {% endfor %}
+                    </table>
+                  </td>
                 </tr>
               {% endfor %}
             </table>
@@ -38,12 +99,18 @@
       {% endfor %}
     </table>
 
+    <!-- Load Jquery -->
     <script type=text/javascript src="{{
       url_for('static', filename='jquery-3.0.0.min.js') }}"></script>
+    <!-- Hide occurences, handle toggle click -->
     <script>
       $(document).ready(function(){
         $('.occurs-wrapper').toggle();
+        $('.toggle-occurs').on('click', function() {
+          $(this).next().toggle();
+        });
       });
     </script>
+
   </body>
 </html>

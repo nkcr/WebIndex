@@ -1,7 +1,35 @@
 * {
   /*margin: 0;
   padding: 0;*/
+  box-sizing: border-box;
 }
+
+body {
+  font-family: 'Oxygen', sans-serif;
+  margin-top: 0;
+}
+
+ul.flashes {
+  background: aliceblue;
+  margin: 0;
+}
+
+p.info {
+  font-weight: lighter;
+}
+
+.row {
+  padding: 20px 0;
+}
+  .row .block {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    background: #f5f5f5;
+  }
+    .row .block .info {
+      max-width: 400px;
+    }
 
 table {
   border-collapse: collapse;
@@ -33,3 +61,27 @@ table {
     table td.occurs {
       padding: 10px;
     }
+    table tr.occur {
+      transition: 270ms;
+    }
+    table tr.occur:hover {
+      background: rgba(0, 0, 255, 0.1);
+    }
+
+.display-occurs {
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: lighter;
+  padding: 0 0 10px 0;
+}
+  .display-occurs:hover {
+    color: blue;
+  }
+.all-occurs {
+  display: none;
+  background: rgba(0, 0, 255, 0.1);
+  margin: 0 0 15px 0;
+}
+  .all-occurs td {
+    padding: 10px;
+  }

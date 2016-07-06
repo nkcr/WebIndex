@@ -215,7 +215,7 @@ def test_getcontext():
         'content': [
             12.54, { # rank
                 'docid': [
-                    2, 12.54, [ # nbHits, rank
+                    2, 1.54, [ # nbHits, rank
                         [ 1, 8, 0, 'p' ], # blockId, position, domLevel, HTML tag
                         [ 2, 0, 0, 'p' ]
                     ]
@@ -233,19 +233,19 @@ def test_getcontext():
     truth = [
         [
             'content', 12.54, [ # wordId, rank
-                ['...s is ', '1', 'url1'], # wbefore, wafter, url
-                ['...ello ', ' how...', 'url2']
-            ]
-        ]
-    ]
-    # The array order is not deterministic, so we check both possibilities
-    truth2 = [
-        [
-            'content', 12.54, [ # wordId, rank
-                ['...ello ', ' how...', 'url2'], # wbefore, wafter, url
-                ['...s is ', '1', 'url1']
+                [
+                    2.32, 'url2', [ # rank, url
+                        ['...ello ', ' how...'] # wbefore, wafter
+                    ],
+                ],
+                [
+                    1.54, 'url1', [
+                        ['...s is ', '1'],
+                        ['', '2']
+                    ]
+                ]
             ]
         ]
     ]
     res = iengine.getcontext(repo, ii, keys, offset)
-    assert res == truth or res == truth2
+    assert res == truth

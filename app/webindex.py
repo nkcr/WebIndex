@@ -47,18 +47,9 @@ class Webindex:
 
     def saveii(self):
         iengine.savejson('data/ii.txt', self.getii())
-        
+
     def saverepo(self):
         iengine.savejson('data/repo.txt', self.repo)
-
-    def savestats(self, path, quantity=100):
-        iengine.settfidf2(self.repo,self.getii())
-        iengine.setwrank(self.engine.ii)
-        keys = iengine.mostranked(quantity,self.getii())
-        with open(path, 'w') as csvfile:
-            spamwriter = csv.writer(csvfile)
-            for k in keys:
-                spamwriter.writerow([k,round(self.getii()[k][0],2)])
 
     def read_mostranked(self, quantity=100):
         try:
