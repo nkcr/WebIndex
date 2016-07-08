@@ -7,10 +7,20 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = set(['html'])
+MAX_HIST = 100
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY']    = 'dyf45hmlg350xykfh590ahfgsnek692d'
 app.config['DEFAULT_QUANTITY'] = 100
+
+def display_filter(s):
+    '''This is a jinja filter. It returns a value for the histogram.
+    '''
+    res = round(s,2)
+    if(res > MAX_HIST):
+        return MAX_HIST
+    return round(s,2)
+app.jinja_env.filters['hist'] = display_filter
 
 def cut_filter(s):
     '''This is a jinja filter. It removes extra digits on a float
@@ -43,11 +53,22 @@ def index():
     creating the datastructures that will be saved in 'data' folder.
     '''
     webindex = wi.Webindex()
+
+    # Quantity param
     quantity = request.args.get("quantity")
     if(quantity is None):
         quantity = app.config['DEFAULT_QUANTITY']
     else:
         quantity = int(quantity)
+
+    # bias param
+    if(request.args.get("word") is not None and
+            request.args.get("bias") is not None):
+        try:
+            webindex.bias(request.args.get("word"), float(request.args.get("bias")))
+        except BaseException as e:
+            flash("Failed to bias. ", str(e))
+
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -73,4 +94,5 @@ def index():
         webindex.saverepo()
     else:
         best = webindex.read_mostranked(quantity)
-    return render_template('index.html', best=best)
+    words = webindex.get_words()
+    return render_template('index.html', best=best, words=words)

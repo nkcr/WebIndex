@@ -148,3 +148,11 @@ def importjson(path):
     with codecs.open(path, 'r', 'utf8') as f:
         hash = json.loads(f.read())
     return hash
+
+def words(ii):
+    '''Given an inverted index, return all the words.
+    '''
+    res = []
+    for key in ii:
+        res.append({"label": key, "rank": round(ii[key][0],2)})
+    return res

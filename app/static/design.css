@@ -85,3 +85,18 @@ table {
   .all-occurs td {
     padding: 10px;
   }
+
+.bias {
+  width: 100px;
+}
+.bias input[type=number] {
+  width: 40px;
+  transition: 270ms;
+}
+  .bias input[type=number]:focus {
+    width: 50px;
+  }
+
+.keyword-update {
+  padding: 10px 0 0 0;
+}

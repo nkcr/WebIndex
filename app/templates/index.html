@@ -3,6 +3,9 @@
   <head>
     <title>WebIndex</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='design.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='jquery-ui.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='jquery-ui.theme.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='jquery-ui.structure.min.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Oxygen:400,700,300' rel='stylesheet' type='text/css'>
   </head>
   <body>
@@ -23,7 +26,9 @@
       Will automatically try to load an inverted index and repository at
       'data/ii.txt' and 'data/repo.txt'.<br>
       When files are loaded, the repository and inverted index are saved to
-      'data/repo.txt' and 'data/ii.txt' respectively.
+      'data/repo.txt' and 'data/ii.txt' respectively.<br>
+      <b>Bias</b> is a value that multiply the current rank of a word. A bias
+      of 2 will give a rank twice greater and 0.5 twice smaller.
     </p>
 
     <div class="row">
@@ -47,12 +52,29 @@
           <input type=submit value=Change>
         </form>
       </div>
+      <!-- Search keywords -->
+      <div class="block">
+        <h3>Search for a keyword and apply bias</h3>
+        <label for="autocomplete">Select a keyword: </label>
+        <input id="autocomplete">
+        <div class="keyword-update">
+          Selected:
+          <b><span class="keyword"></span></b>
+          <span class="rank"></span>
+          <form action="" method=get>
+            <input type="number" name="bias" disabled="" step="0.0001" min="0">
+            <input type="hidden" name="word" class="keyword-form">
+            <input type="submit" value="Bias" disabled="">
+          </form>
+        </div>
+      </div>
     </div>
 
     <!-- Keywords table -->
     <table>
       <thead>
         <tr>
+          <th>Bias</th>
           <th>Keyword (number of documents)</th>
           <th>Histogram</th>
           <th>Index score</th>
@@ -60,16 +82,23 @@
       </thead>
       <!-- For each keyword -->
       {% for word in best %}
-        <tr onclick="$(this).next().toggle()" class="keyword">
-          <td class="kw"><b>{{ word[0] }}</b> ({{ word[2] | length }})</td>
-          <td class="stat">
-            <div style="width:{{ word[1] | cut }}px">
+        <tr class="keyword">
+          <td class="bias">
+            <form action="" method=get>
+              <input type="number" name="bias" step="0.0001" min="0">
+              <input type="hidden" name="word" value="{{ word[0] }}">
+              <input type="submit" value="Bias">
+            </form>
+          </td>
+          <td class="kw toggle-keyword"><b>{{ word[0] }}</b> ({{ word[2] | length }})</td>
+          <td class="stat toggle-keyword">
+            <div style="width:{{ word[1] | hist }}px">
             </div>
           </td>
-          <td>{{ word[1] | cut }}</td>
+          <td class="toggle-keyword">{{ word[1] | cut }}</td>
         </tr>
         <tr class="occurs-wrapper">
-          <td class="occurs">
+          <td class="occurs" colspan="99">
             <table>
               <!-- For each occurence of a keyword in a document -->
               {% for dococcur in word[2] %}
@@ -82,7 +111,7 @@
                   <td class="display-occurs">+ ({{ dococcur[2] | length - 1 }})</td>
                 </tr>
                 <tr class="all-occurs">
-                  <td>
+                  <td colspan="99">
                     <table>
                       {% for occur in dococcur[2][1:] %}
                       <tr>
@@ -101,13 +130,32 @@
 
     <!-- Load Jquery -->
     <script type=text/javascript src="{{
-      url_for('static', filename='jquery-3.0.0.min.js') }}"></script>
+      url_for('static', filename='jquery.js') }}"></script>
+    <!-- Load Jquery UI -->
+    <script type="text/javascript" src="{{
+      url_for('static', filename='jquery-ui-1.11.4.min.js') }}"></script>
     <!-- Hide occurences, handle toggle click -->
     <script>
       $(document).ready(function(){
         $('.occurs-wrapper').toggle();
+
+        $('.toggle-keyword').on('click', function() {
+          $(this).parent('.keyword').next().toggle();
+        });
+
         $('.toggle-occurs').on('click', function() {
           $(this).next().toggle();
+        });
+
+        $( "#autocomplete" ).autocomplete({
+          source: {{ words|tojson|safe }},
+          select: function(event, ui){
+            var el = $('.keyword-update');
+            el.find('.keyword').text(ui.item.label);
+            el.find('.rank').text('(' + ui.item.rank + ')');
+            el.find('input').attr('disabled', false);
+            el.find('.keyword-form').attr('value', ui.item.label);
+          }
         });
       });
     </script>

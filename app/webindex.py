@@ -11,6 +11,7 @@ class Webindex:
     def __init__(self):
         self.engine = blockextractor.BlockExtractor()
         self.repo = {}
+        self.ii = {}
 
     def handlefile(self, path):
         '''Parse a file to blocks and tokenize each block filling the inverted index.
@@ -23,30 +24,18 @@ class Webindex:
     def update(self, quantity=10):
         '''Compute the tf-idf and update word ranks. Return the n best words.
         '''
-        iengine.settfidf2(self.repo,self.getii())
+        iengine.settfidf2(self.repo,self.engine.ii)
         iengine.setwrank(self.engine.ii)
-        best = iengine.mostranked(quantity,self.getii())
+        best = iengine.mostranked(quantity,self.engine.ii)
+        self.ii = self.engine.ii
         return best
 
     def mostranked(self, quantity=10):
         keys = self.update(quantity)
-        return iengine.getcontext(self.repo, self.getii(), keys)
-
-    def test(self):
-        handlefile('lib/HTMLextraction/test_files/simple.html')
-        handlefile('lib/HTMLextraction/test_files/full_content.html')
-        iengine.settfidf(self.repo,self.getii())
-        iengine.setwrank(engine.ii)
-        best = iengine.mostranked(4,self.getii())
-        print(best)
-        print(self.repo)
-        print(self.getii())
-
-    def getii(self):
-        return self.engine.ii
+        return iengine.getcontext(self.repo, self.ii, keys)
 
     def saveii(self):
-        iengine.savejson('data/ii.txt', self.getii())
+        iengine.savejson('data/ii.txt', self.ii)
 
     def saverepo(self):
         iengine.savejson('data/repo.txt', self.repo)
@@ -57,8 +46,20 @@ class Webindex:
             repo = iengine.importjson('data/repo.txt')
         except OSError:
             return {}
+        self.ii = ii
         keys = iengine.mostranked(quantity, ii)
         return iengine.getcontext(repo, ii, keys)
+
+    def bias(self, word, biasv):
+        try:
+            ii = iengine.importjson('data/ii.txt')
+        except OSError:
+            return {}
+        ii[word][0] *= (biasv)
+        iengine.savejson('data/ii.txt', ii)
+
+    def get_words(self):
+        return iengine.words(self.ii)
 
 # webindex = Webindex()
 # files = glob.glob('documents/TIF_FR/*.html')
