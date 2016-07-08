@@ -73,10 +73,20 @@ class BlockExtractor:
         content = content.lower()
         terms = re.split('\W', content)
 
+        # This is a naive n-gram implementation
+        # Context is not shown properly.
+        # terms = [x for x in terms if len(x.strip()) > 1]
+        # grams = []
+        # for n in range(2,4):
+        #     for i in range(0, len(terms)-n+1):
+        #         grams.append(terms[i:i+n])
+        # terms.extend(grams)
+
         # ii = Inverted Index
         local_ii = defaultdict(lambda: [ 0, defaultdict(lambda:
              [0,0,[] ]) ])
         for term in terms:
+            term = str(term)
             if(len(term) > 1 and term not in self.fr_sw and term not in self.en_sw):
                 # term = self.stemmer.stem(term)
                 hit = [ block_id, cur_pos, kargs['dom_level'], str(html_tag) ]
