@@ -1,11 +1,31 @@
-# Install
+# Deploy
+
+## Install dependencies
 
 ```
+sudo apt-get install python3-pip
+pip3 install uwsgi
 sudo apt-get install libxml2 libxml2-dev libxslt1-dev
 pip3 install -r requirements.txt
 ```
 
-# Run the webserver
+## NGINX conf
+
+```
+location / { try_files $uri @yourapplication; }
+location @yourapplication {
+    include uwsgi_params;
+    uwsgi_pass unix:/tmp/yourapplication.sock;
+}
+```
+
+## Launch application server
+
+```
+uwsgi -s /tmp/uwsgi.sock --manage-script-name --mount /=webstart:app
+```
+
+# Run the webserver in local
 
 Run `. venv/bin/activate`. Then do `export FLASK_APP=webstart.py` and `flask run`.
 
