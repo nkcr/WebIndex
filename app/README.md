@@ -1,3 +1,10 @@
+# Install
+
+```
+sudo apt-get install libxml2 libxml2-dev libxslt1-dev
+pip3 install -r requirements.txt
+```
+
 # Run the webserver
 
 Run `. venv/bin/activate`. Then do `export FLASK_APP=webstart.py` and `flask run`.

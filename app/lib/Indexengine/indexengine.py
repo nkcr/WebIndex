@@ -9,7 +9,6 @@ from math import log2, log
 import operator
 import codecs, json
 import os
-import yaml
 
 def settfidf(repo, ii):
     '''Update each (word,doc) rank with tf-idf algorithm.
