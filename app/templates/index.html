@@ -60,11 +60,13 @@
         <div class="keyword-update">
           Selected:
           <b><span class="keyword"></span></b>
+          <br>
+          with bias:
           <span class="rank"></span>
           <form action="" method=get>
             <input type="number" name="bias" disabled="" step="0.0001" min="0">
             <input type="hidden" name="word" class="keyword-form">
-            <input type="submit" value="Bias" disabled="">
+            <input type="submit" value="Apply bias" disabled="">
           </form>
         </div>
       </div>
@@ -87,7 +89,7 @@
             <form action="" method=get>
               <input type="number" name="bias" step="0.0001" min="0">
               <input type="hidden" name="word" value="{{ word[0] }}">
-              <input type="submit" value="Bias">
+              <input type="submit" value="Apply bias">
             </form>
           </td>
           <td class="kw toggle-keyword"><b>{{ word[0] }}</b> ({{ word[2] | length }})</td>
@@ -152,7 +154,7 @@
           select: function(event, ui){
             var el = $('.keyword-update');
             el.find('.keyword').text(ui.item.label);
-            el.find('.rank').text('(' + ui.item.rank + ')');
+            el.find('.rank').text(ui.item.rank);
             el.find('input').attr('disabled', false);
             el.find('.keyword-form').attr('value', ui.item.label);
           }
