@@ -5,7 +5,7 @@ import webindex as wi
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'static/uploads'
+UPLOAD_FOLDER = os.path.abspath('static/uploads')
 ALLOWED_EXTENSIONS = set(['html'])
 MAX_HIST = 100
 
