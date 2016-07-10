@@ -17,12 +17,24 @@ location @yourapplication {
     include uwsgi_params;
     uwsgi_pass unix:/tmp/yourapplication.sock;
 }
+client_max_body_size 10M;
+```
+
+## Create upload folder
+
+```
+mkdir app/static/uploads
 ```
 
 ## Launch application server
 
 ```
 uwsgi -s /tmp/uwsgi.sock --manage-script-name --mount /=webstart:app
+```
+
+## Change socket permission
+```
+chmod 777 /tmp/uwsgi.sock
 ```
 
 # Run the webserver in local
