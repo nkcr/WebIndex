@@ -17,7 +17,7 @@ and a way to browse them easily.
 
 ```
 └── app             # Web server
-    ├── data        # Exported data structure
+    ├── data        # Exported data structures
     ├── lib         # Modules
     ├── static      # Static web assets
     │   └── uploads # Uploaded files
