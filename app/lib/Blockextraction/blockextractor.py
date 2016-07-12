@@ -1,8 +1,11 @@
-'''DESCRIPTION HERE
+'''Tokenize a block of content.
+
+This module maily proovides the callback method needed for the
+HTMLextraction module. It also holds the inverted index.
 
 Author: Noémien Kocher
 Licence: MIT
-Date: june 2016
+Date: july 2016
 '''
 
 from collections import defaultdict
@@ -14,6 +17,9 @@ import json
 # from nltk.stem.snowball import FrenchStemmer
 
 class BlockExtractor:
+    '''This class hold the inverted index and the callback method
+    needed by the HTMLextractor.
+    '''
 
     def __init__(self):
         self.ii = defaultdict(lambda: [ 0, defaultdict(lambda: [0,0,[]]) ])
@@ -24,6 +30,9 @@ class BlockExtractor:
         # self.stemmer = FrenchStemmer()
 
     def update_ii(self, hash, docId):
+        '''Given a local inverted index, it will merge it with the
+        inverted index.
+        '''
         for key in hash:
             if(docId in self.ii[key][1]):
                 self.ii[key][1][docId][2].extend(hash[key][1][docId][2])
@@ -32,6 +41,9 @@ class BlockExtractor:
                 self.ii[key][1][docId] = hash[key][1][docId]
 
     def update_norms(self, hash, docId):
+        '''Given a local inverted index, will update the norms of the
+        given docid.
+        '''
         for key, value in hash.items():
             count = value[1][docId][0]
             self.normssq[docId] += count*count

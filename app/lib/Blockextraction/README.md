@@ -35,7 +35,7 @@ import blockextractor as parser
 
 engine = parser.BlockExtractor()
 engine.handle_block(content, block_id, html_tag, **kargs)
-# kargs are {block_id, rel_pos}
+# kargs are {block_id, rel_pos, formatting, dom_level, path, docid}
 inverted_index = engine.ii
 ```
 

@@ -4,22 +4,26 @@
 
 Provides function to manipulate an inverted index.
 
-* Compute tf-idf for each occurence of a word in a document
-* Update the rank of each word
-* Retrieve the n best words
-* Save an inverted index to a json file
-* Save the repository as a json file
+* Compute tf-idf for each occurence of a word in a document `settfidf2`
+* Update the rank of each word `setwrank`
+* Retrieve the n best words `mostranked`
+* Save a data-structure to a json file `savejson`
+* Import a data-structure as json file `importjson`
+* Get the context of occurrences `getcontext`
+* Get all the words `words`
 
 ## Usage
 
 ```python
 import indexengine as iengine
 
-iengine.settfid(repo, ii)
+iengine.settfid2(repo, ii)
 iengine.setwrank(ii)
 keys = iengine.mostranked
-iengine.saveii(path, ii)
-iengine.saverepo(path, repo)
+iengine.savejson(path, ii)
+repo = iengine.importjson(path, repo)
+contexts = iengine.getcontext(repo, ii, keys, offset=40)
+words = iengine.words(ii)
 ```
 
 

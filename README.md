@@ -31,3 +31,5 @@ and a way to browse them easily.
 Go to `/app` run `. venv/bin/activate`. Then do `export FLASK_APP=webstart.py` and `flask run`.
 
 If the server needs to be visible outside localhost, run with `flask run --host=0.0.0.0`. To have the debug mode, do `export FLASK_DEBUG=1`.
+
+You might need to install dependencies, see the README at `/app`.

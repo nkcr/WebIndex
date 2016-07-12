@@ -12,6 +12,8 @@ import os
 
 def settfidf(repo, ii):
     '''Update each (word,doc) rank with tf-idf algorithm.
+
+    Algorithm: tf*idf
     '''
     for wordid, value in ii.items():
         for docid, value2 in value[1].items():
@@ -24,7 +26,10 @@ def settfidf(repo, ii):
             value2[1] = tf*idf
 
 def settfidf2(repo, ii):
-    '''Update each (word,doc) rank with tf-idf algorithm.
+    '''Update each (word,doc) rank with a variant of tf-idf algorithm.
+    THIS VARIANT IS THE BEST.
+
+    Algorithm: tf^2*idf*idl/norms + boost
     '''
     for wordid, value in ii.items():
         for docid, value2 in value[1].items():
@@ -45,7 +50,9 @@ def settfidf2(repo, ii):
             value2[1] = (tf*tf*idf*idl / norms) + boost
 
 def settfidf3(repo, ii):
-    '''Update each (word,doc) rank with tf-idf algorithm.
+    '''Update each (word,doc) rank with a variant of tf-idf algorithm.
+
+    Algorithm: tf^2*idf / norms + boost
     '''
     for wordid, value in ii.items():
         for docid, value2 in value[1].items():

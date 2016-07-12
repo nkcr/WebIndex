@@ -1,3 +1,9 @@
+'''
+Author: Noémien Kocher
+Licence: MIT
+Date: june 2016
+'''
+
 import lib.HTMLextraction.htmlextractor as parser
 import lib.Blockextraction.blockextractor as blockextractor
 import lib.Indexengine.indexengine as iengine
@@ -7,6 +13,9 @@ import glob
 from math import sqrt
 
 class Webindex:
+    '''This class provides an interface between the Flask webserver
+    and the module Blockextraction, HTMLextraction and Indexengine.
+    '''
 
     def __init__(self):
         self.engine = blockextractor.BlockExtractor()
@@ -31,16 +40,25 @@ class Webindex:
         return best
 
     def mostranked(self, quantity=10):
+        '''Retreive the n best words with their contexts.
+        '''
         keys = self.update(quantity)
         return iengine.getcontext(self.repo, self.ii, keys)
 
     def saveii(self):
+        '''Save the inverted index to 'data/ii.txt'.
+        '''
         iengine.savejson('data/ii.txt', self.ii)
 
     def saverepo(self):
+        '''Save the repository to 'data/repo.txt'.
+        '''
         iengine.savejson('data/repo.txt', self.repo)
 
     def read_mostranked(self, quantity=100):
+        '''Try to load data-structures in 'data' folder and return
+        n best words.
+        '''
         try:
             ii = iengine.importjson('data/ii.txt')
             repo = iengine.importjson('data/repo.txt')
@@ -51,6 +69,8 @@ class Webindex:
         return iengine.getcontext(repo, ii, keys)
 
     def bias(self, word, biasv):
+        '''Change the rank of a word.
+        '''
         try:
             ii = iengine.importjson('data/ii.txt')
         except OSError:
@@ -59,6 +79,8 @@ class Webindex:
         iengine.savejson('data/ii.txt', ii)
 
     def get_words(self):
+        '''Return all the words in the inverted index.
+        '''
         return iengine.words(self.ii)
 
 # webindex = Webindex()

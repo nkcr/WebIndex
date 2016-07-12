@@ -1,3 +1,10 @@
+'''This module provides a minimalist interface using Flask webserver.
+
+Author: Noémien Kocher
+Licence: MIT
+Date: july 2016
+'''
+
 from flask import Flask, render_template, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os, shutil
@@ -5,10 +12,11 @@ import webindex as wi
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'static/uploads'
-ALLOWED_EXTENSIONS = set(['html'])
-MAX_HIST = 100
+UPLOAD_FOLDER = 'static/uploads' # default uplad folder
+ALLOWED_EXTENSIONS = set(['html']) # file extension allowed
+MAX_HIST = 100 # default number of keywords to display
 
+# Set Flask variables
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY']    = 'dyf45hmlg350xykfh590ahfgsnek692d'
 app.config['DEFAULT_QUANTITY'] = 100

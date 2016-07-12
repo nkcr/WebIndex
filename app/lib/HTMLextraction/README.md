@@ -43,6 +43,7 @@ callback(content, block_id, html_tag, **kargs)
         blocks.
 * rel_pos (int): Indicates the position relative to the block.
 * path (string): The path given to parse the file.
+* docid (string): The id of the doc.
 
 Example with a docId and a callback:
 

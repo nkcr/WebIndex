@@ -1,3 +1,12 @@
+'''This module provides functions that allowed us to perform validation
+of or solution. It provides functions to compute the recall and precision
+as well as many others that are used to extract data.
+
+Author: Noémien Kocher
+Licence: MIT
+Date: june 2016
+'''
+
 import codecs
 import json
 import sys

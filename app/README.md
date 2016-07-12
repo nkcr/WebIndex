@@ -65,3 +65,5 @@ Run all the tests with:
 * python3
 * Flask
 * nltk
+
+Install them with `pip3 install -r requirements.txt`.
