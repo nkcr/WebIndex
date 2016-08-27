@@ -28,9 +28,13 @@ mkdir app/static/uploads
 
 ## Launch application server
 
+Inside the application folder, create the socket:
+
 ```
-uwsgi -s /tmp/uwsgi.sock --manage-script-name --mount /=webstart:app
+uwsgi -s /tmp/uwsgi.sock --manage-script-name --mount /=webstart:app &
 ```
+
+using `&` at the end of the command runs in background, hit enter again.
 
 ## Change socket permission
 ```
