@@ -153,7 +153,7 @@ def compute_full_recall(rank_func, sourcefolder, savefolder, variant, quantity=1
 
 def compute_recall(indexwords, bestwords):
     '''Given the index of words en the words found, compute and return the recall.
-    Recall is TP / (TP+FP)
+    Recall is TP / (TP+FN)
     '''
     true_positive = len( set(indexwords).intersection(bestwords) )
     false_negative = len ( set(indexwords).difference(bestwords) )
