@@ -4,6 +4,8 @@ a keywords index based on a collection of web pages. The solution should give to
 users a clever representation of the most important subjects on the web pages
 and a way to browse them easily.
 
+[Download report on Academia.](https://www.academia.edu/28577673/WebIndex_Keywords_based_index_for_HTML)
+
 # Functionalities
 
 * Submit a folder containing HTML pages and generate an index
